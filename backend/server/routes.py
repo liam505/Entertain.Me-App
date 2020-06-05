@@ -3,7 +3,9 @@ from .extensions import db
 
 # from app import app
 
-from .models import Users, Movies, Favourite_Movies
+from .models import users, Movies, favourite_movies
+
+key = "ca3b3298e0c4d85c79e20c33b747a10c"
 
 entertain = Blueprint('entertain', __name__)
 
@@ -12,9 +14,40 @@ def index():
     return "hello"
 
 @entertain.route('/movie/<movieID>')
-def movie(movieID):
+def getMovie(movieID):
     movie = Movies.query.get(movieID) # .first() needed?
     return movie 
+
+@entertain.route('/addmovie/<userID>') #,methods=['POST']
+def postMovie(userID):
+    movie = Movies(title='test title',description='test description')
+    db.session.add(movie)
+    db.session.commit()
+     # Commit twice...?
+    favourite = favourite_movies('1', '1', 'Happy')
+    db.session.add(favourite)
+    db.session.commit() # Commit twice...?
+
+    # Movies.insert().values(movieID=1, title="test title", description="description!", genre="action")
+    # Favourite_Movies.insert().values(userID=1, movieID=1, mood="happy")
+
+    return "adding movie"
+
+@entertain.route('/favourite', methods=['DELETE'])
+def deleteFavourite():
+    uID = 1
+    mID = 1
+    favourite = favourite_movies('', '1')
+    db.session.delete(favourite)
+    return "deleting favourite"
+
+# @entertain.route('/api/movie/<movieID>')
+# def apiGetMovie(movieID):
+#     url = "https://api.themoviedb.org/3/movie/" + movieID +  "?api_key=" + key + "&language=en-US"
+#     response = requests.get(url)
+#     print(response.ok)
+#     print(response.json())
+
 
 # @entertain.route('/movies/<userID>') #Gets all favourited movies for a user
 # def movies(userID):
