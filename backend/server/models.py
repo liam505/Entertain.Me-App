@@ -25,7 +25,6 @@ class Users(db.Model):
     username = db.Column(db.String(512))
     password = db.Column(db.String(512))
 
-
     def serialize(self):
         return {"id": self.user_id,
                 "username": self.username}
@@ -40,7 +39,6 @@ class Movies(db.Model):
     age_rating = db.Column(db.Integer)
     running_time = db.Column(db.Integer)
     genre = db.Column(db.String(512))
-    Users = db.relationship('Users', )
 
     def __repr__(self):
         return '<Movie %r>' % self.movie_id
