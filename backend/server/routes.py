@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, jsonify
 from .extensions import db
+import json
 
-# from app import app
 
-from .models import users, Movies, favourite_movies
+from .models import Users, Movies, favourite_movies
 
 key = "ca3b3298e0c4d85c79e20c33b747a10c"
 
@@ -15,31 +15,77 @@ def index():
 
 @entertain.route('/movie/<movieID>')
 def getMovie(movieID):
-    movie = Movies.query.get(movieID) # .first() needed?
-    return movie 
+    movie = Movies.query.filter_by(movie_id=movieID).first() # .first() needed?
+    if movie:
+        return movie.title
+    else:
+        return 'something went wrong'
+
+@entertain.route('/favourites', methods = ['GET'])
+def getAllFavourites():
+    fav = db.session.query(favourite_movies).all() #.join(Users)
+    fav = json.dumps(fav)
+    if fav:
+        return fav
+    else:
+        return 'something went wrong'
 
 @entertain.route('/addmovie/<userID>') #,methods=['POST']
 def postMovie(userID):
     movie = Movies(title='test title',description='test description')
     db.session.add(movie)
-    db.session.commit()
-     # Commit twice...?
-    favourite = favourite_movies('1', '1', 'Happy')
-    db.session.add(favourite)
-    db.session.commit() # Commit twice...?
 
-    # Movies.insert().values(movieID=1, title="test title", description="description!", genre="action")
-    # Favourite_Movies.insert().values(userID=1, movieID=1, mood="happy")
+    statement = favourite_movies.insert().values(user_id=2, movie_id=1, mood='sad')
+    db.session.execute(statement)
+
+    db.session.commit()
 
     return "adding movie"
 
-@entertain.route('/favourite', methods=['DELETE'])
-def deleteFavourite():
-    uID = 1
-    mID = 1
-    favourite = favourite_movies('', '1')
-    db.session.delete(favourite)
-    return "deleting favourite"
+@entertain.route('/users') #broken
+def getUsers():
+    
+    users = db.session.query(Users).all()
+    users = json.dumps(users) ##
+
+    if users:
+        return Users
+        # return users[0].username
+    else:
+        return 'something went wrong'
+
+@entertain.route('/user/<userID>') # Returns a single user defined by its ID
+def getUser(userID):
+    user = Users.query.filter_by(user_id=userID).first()
+    if user:
+        return user.username
+    else:
+        return 'something went wrong'
+
+
+@entertain.route('/user')
+def addUser():
+    user = Users(username="test username", email="google.com")
+    db.session.add(user)
+    db.session.commit()
+    return "adding user"
+
+@entertain.route('/user/<userID>', methods = ['DELETE'])
+def deleteUser(userID):
+    user = Users.query.filter_by(user_id=userID).first()
+    db.session.delete(user)
+    db.session.commit()
+    return "deleting user"
+
+@entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )
+def deleteFavourites(userID, movieID):
+    fav = favourite_movies.query.filter_by(user_id = userID, movie_id = movieID).first()
+
+    # test = db.session.query(favourite_movies).filter_by(user_id=userID, movie_id=movieID).one()
+    # db.session.delete()
+    # db.session.commit()
+    print(fav)
+    return "deleting user"
 
 # @entertain.route('/api/movie/<movieID>')
 # def apiGetMovie(movieID):
@@ -63,21 +109,3 @@ def deleteFavourite():
     
     
 
-# @entertain.route('/add_movie', methods=[POST])
-# def add_movie
-
-# @short.route('/<short_url>')
-# def redirect_to_url(short_url):
-#     link = Link.query.filter_by(short_url=short_url).first_or_404()
-#     return redirect(link.original_url)
-
-# @short.route('/')
-# def index():
-#     return render_template('index.html')
-
-# @short.route('/add_link', methods=['POST'])
-# def add_link():
-#     original_url = request.form['original_url']
-#     link = Link(original_url=original_url)
-#     db.session.add(link)
-#     db.session.commit()
