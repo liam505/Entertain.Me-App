@@ -1,0 +1,8 @@
+.movieContainer{
+    border: 3px red solid;
+}
+
+img {
+    height: 300px;
+    width: 200px;
+}

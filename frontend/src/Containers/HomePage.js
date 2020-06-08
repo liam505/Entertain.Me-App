@@ -4,73 +4,95 @@ import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar'
 import '../css/Homepage.css';
+import Movie from '../Components/Movie'
 
 class Homepage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            loginUsername:null,
-            loginPassword:null,
-            registrationUsername:null,
-            registrationPassword:null
+            movieData:null
         }
     }
 
-    handleChangeLoginUsername = (e) => {
-        let loginUsername = e.target.value;
-        this.setState({ loginUsername: loginUsername })
-    }
-    handleChangeLoginPassword = (e) => {
-        let loginPassword = e.target.value;
-        this.setState({ loginPassword: loginPassword })
+
+    handleClickMovieSearch = (e) => {
+
+        let key = "ca3b3298e0c4d85c79e20c33b747a10c"
+        let search = "frozen"
+
+        // fetch('localhost:5000/favourites', {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify({a: 1, b: 'Textual content'})
+        // })
+
+        console.log("Clicked")
+
+        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${search}&page=1&include_adult=false`)
+        .then(response => response.json())
+        .then(data =>{
+            console.log(data.results) //testing
+            this.setState({movieData : data.results})
+        
+        })
+        .then(() => {
+            fetch('/favourites', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(this.state.movieData)
+            })
+            .catch(error =>{
+                console.log(error)
+            })
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
-    handleChangeRegistrationUsername = (e) => {
-        let registrationUsername = e.target.value;
-        this.setState({ registrationUsername: registrationUsername })
-    }
-    handleChangeRegistrationPassword = (e) => {
-        let registrationPassword = e.target.value;
-        this.setState({  registrationPassword:  registrationPassword })
-    }
+    handleClickMovieGet = (e) => {
 
+        console.log("Get movie clicked")
+
+        fetch('/movie/1')
+        .then(response =>{
+            console.log(response)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+
+
+    }
 
 
     render(){
-        return (
 
-            <div>
-                <div className="homepage-title">
-                    <h1>"Homepage!"</h1>
+        if(this.state.movieData){
+            while((this.state.movieData).length > 10){
+                this.state.movieData.pop();
+            }
+    
+            return(
+                <div className="movieContainer">
+                    {this.state.movieData.map(data => <Movie userID = {1} data = {data}/>)}
+                </div> 
+            )
+        }
+
+
+        // if(this.state.movieData){
+        //     return response
+        // }
+        
+            return (
+                <div>
+                    <Button onClick={this.handleClickMovieSearch}/>
+                    <Button onClick={this.handleClickMovieGet}/>
                 </div>
-                
-
-                <div className="loginFormDiv">
-                    <h2>Login</h2>
-                    <Form className="form">
-                        <Form.Control required onChange={this.handleChangeLoginUsername} className="input" type="text" placeholder="Username"/>
-                        <Form.Control required onChange={this.handleChangeLoginPassword} className="input" type="password" placeholder="Password"/>
-                    </Form>
-                    <div className="button-container">
-                        <Button variant="primary" type="submit" id="login-btn" className="button"/>
-                    </div>
-                </div>
-
-                <div className="registrationFormDiv">
-                    <h2>Registration</h2>
-                    <Form className="form">
-                        <Form.Control required onChange={this.handleChangeRegistrationUsername} className="input" type="text" placeholder="Username"/>
-                        <Form.Control required onChange={this.handleChangeRegistrationPassword} className="input" type="password" placeholder="Password"/>
-                    </Form>
-                    <div className="button-container">
-                        <Button variant="primary" type="submit" id="login-btn" className="button"/>
-                    </div>
-                </div>
-
-            </div>
-            
-
-        )
+            )
+          
+        
     }
 }
 
