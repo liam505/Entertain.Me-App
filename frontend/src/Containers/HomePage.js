@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar'
 import '../css/Homepage.css';
+import Movie from '../Components/Movie'
 
 class Homepage extends React.Component {
     constructor(props){
@@ -30,7 +31,7 @@ class Homepage extends React.Component {
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${search}&page=1&include_adult=false`)
         .then(response => response.json())
         .then(data =>{
-            console.log(data.results)
+            console.log(data.results) //testing
             this.setState({movieData : data.results})
         
         })
@@ -66,6 +67,20 @@ class Homepage extends React.Component {
 
 
     render(){
+
+        if(this.state.movieData){
+            while((this.state.movieData).length > 10){
+                this.state.movieData.pop();
+            }
+    
+            return(
+                <div className="movieContainer">
+                    {this.state.movieData.map(data => <Movie userID = {1} data = {data}/>)}
+                </div> 
+            )
+        }
+
+
         // if(this.state.movieData){
         //     return response
         // }
