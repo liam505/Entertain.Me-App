@@ -1,8 +1,17 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3' #os.environ.get('DATABASE_URL')
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME')
-ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
 
-# matt and medyen tutorial copied
+class Config:
+     SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3' #os.environ.get('DATABASE_URL')
+     SQLALCHEMY_TRACK_MODIFICATIONS = False
+     SECRET_KEY = os.getenv('SECRET_KEY')
+     GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+     GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+     GOOGLE_DISCOVERY_URL = (
+        "https://accounts.google.com/.well-known/openid-configuration"
+)
+
+
+
