@@ -27,17 +27,6 @@ def getMovie(movieID):
         return 'something went wrong'
 
 
-
-#route for getting all favourites  NEEDS FIXING
-@entertain.route('/favourites')
-def getAllFavourites():
-    fav = favourite_movies.query.all()
-
-    if fav:
-        return fav[0].mood
-    else:
-        return 'something went wrong'
-
 #route for getting all favourites for a specifc user by ID
 @entertain.route('/favourites/<userID>')
 def getUserFavourites(userID):
@@ -47,6 +36,21 @@ def getUserFavourites(userID):
     userFavourites = db.session.query(Movies, favourite_movies).join(favourite_movies, (favourite_movies.movie_id == Movies.movie_id)).filter_by(user_id = userID).all()
     # print(json.dumps([dict(r) for r in userFavourites]))
     for fav in userFavourites:
+        results.append(fav.Movies.title)
+        # print(fav.reg_date)
+    
+    return json.dumps(results)
+
+#route for getting all favourites for a specifc user in a specific mood
+@entertain.route('/myfavourites/<userID>/<mood>')
+def getUserFavouritesByMood(userID, mood):
+    
+    titles = []
+    results = []
+    userMoodFavourites = db.session.query(Movies, favourite_movies).join(favourite_movies, (favourite_movies.movie_id == Movies.movie_id)).filter_by(user_id = userID, mood = mood).all()
+    
+    for fav in userMoodFavourites:
+        results.append(fav.favourite_movies.user_id)
         results.append(fav.Movies.title)
         # print(fav.reg_date)
     
