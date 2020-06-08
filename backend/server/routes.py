@@ -16,7 +16,11 @@ def index():
 #route for getting 1 movie using id
 @entertain.route('/movie/<movieID>')
 def getMovie(movieID):
-    movie = Movies.query.filter_by(movie_id=movieID).first() # .first() needed?
+    movie = Movies.query.filter_by(movie_id=movieID).first()
+
+    print(movieID)
+    print(movie.title)
+
     if movie:
         return movie.title
     else:
@@ -34,6 +38,7 @@ def getAllFavourites():
     else:
         return 'something went wrong'
 
+#route for getting all favourites for a specifc user by ID
 @entertain.route('/favourites/<userID>')
 def getUserFavourites(userID):
     
@@ -47,12 +52,16 @@ def getUserFavourites(userID):
     
     return json.dumps(results)
 
-@entertain.route('/addfavourites/<userID>/<movieID>/<mood>') #WILL CHANGE TO POST LATER
-def postUserFavourites(userID, movieID, mood):
-    favourite = favourite_movies(user_id=userID, movie_id=movieID, mood=mood)
+@entertain.route('/favourites', methods=["POST"])
+def postUserFavourites():
+    content = request.json
+    # print(json.dumps(content))
+    print(content)
+    
+    
 
-    db.session.add(favourite)
-    db.session.commit()
+    # db.session.add(favourite)
+    # db.session.commit()
 
     # movie = Movies()
 
