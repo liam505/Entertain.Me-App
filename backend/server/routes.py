@@ -113,6 +113,7 @@ def callback():
 
     return redirect("http://localhost:3000")
 
+
 @entertain.route("/userConfirm")
 @login_required
 def userConfirm():
@@ -125,6 +126,10 @@ def userConfirm():
 def logout():
     logout_user()
     return redirect("http://localhost:3000")
+
+
+
+
 
 
 #route for getting 1 movie using id
@@ -141,17 +146,15 @@ def getMovie(movieID):
         return 'something went wrong'
 
 
-#route for getting all favourites for a specifc user by ID
+#route for getting all favourites for a specific user by ID
 @entertain.route('/favourites/<userID>')
 def getUserFavourites(userID):
     
     titles = []
     results = []
     userFavourites = db.session.query(Movies, favourite_movies).join(favourite_movies, (favourite_movies.movie_id == Movies.movie_id)).filter_by(user_id = userID).all()
-    # print(json.dumps([dict(r) for r in userFavourites]))
     for fav in userFavourites:
         results.append(fav.Movies.title)
-        # print(fav.reg_date)
     
     return json.dumps(results)
 
@@ -166,36 +169,59 @@ def getUserFavouritesByMood(userID, mood):
     for fav in userMoodFavourites:
         results.append(fav.favourite_movies.user_id)
         results.append(fav.Movies.title)
-        # print(fav.reg_date)
     
     return json.dumps(results)
 
+
+
+#rout for adding a film to favourites and the general movie DBs
 @entertain.route('/favourites', methods=["POST"])
 def postUserFavourites():
+
     content = request.json
-    # print(json.dumps(content))
-    # print(content)
-
-    print(content["userID"])
-    print(content["mood"])
-    print(content["data"]["title"])
-    # print(content["data"])
-
-
-    print(content["data"]["id"])
     response = requests.get("https://api.themoviedb.org/3/movie/" + str(content["data"]["id"]) + "?api_key=" + str(key) + "&language=en-US")
-    response = response.loads(response.content)
-    print(response)
+    json_data = json.loads(response.content)
+
+    # print(json_data)
     print("__________________________________________________________")
-    print("runtime: " + response["runtime"])
-    print("runtime: " + response["genres"])
-    print("adult?: " + response["adult"])
+    mTitle = json_data["title"]
+    m_id = json_data["id"]
+    mRuntime = json_data["runtime"]
+    mImageUrl = json_data['poster_path']
+    mDescription = json_data["overview"]
+    mAge_rating = json_data["adult"]
+
+    print(mTitle)
+    print(m_id)
     
+    genreList = ""
 
-    # db.session.add(favourite)
-    # db.session.commit()
+    for genre in json_data["genres"]:
+        genreList += genre["name"] + ","
 
-    # movie = Movies()
+    print(genreList)
+    genre = genreList
+
+
+    movie = Movies(movie_id = m_id, title = mTitle, description = mDescription, image = mImageUrl, genre = genreList, age_rating = mAge_rating, running_time = mRuntime)
+    movie_to_insert = Movies.query.filter_by(movie_id=m_id).all()
+
+    if not movie_to_insert:
+        db.session.add(movie)
+    else:
+        print('Movie already exists in DB')
+   
+        
+    favourite = favourite_movies(user_id = content["userID"], movie_id = content["data"]["id"], mood = content["mood"])
+    fav_to_insert = favourite_movies.query.filter_by(movie_id = m_id, user_id=content["userID"]).all()
+
+    if not fav_to_insert:
+        db.session.add(favourite)
+    else:
+        print('User has already favourited')
+
+
+    db.session.commit()
 
     return "added"
 
