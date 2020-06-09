@@ -21,16 +21,28 @@ class Movie extends React.Component {
         let mood = e.target.value;
         let userID = this.props.userID;
 
-        // fetch('/favourites', {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify(this.props.movieData, userID, mood) //works???
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // })
-
+        console.log(this.props.data)
+        console.log(userID)
         console.log(mood)
+
+        let toBeSent = {
+            data : this.props.data,
+            userID : userID,
+            mood: mood
+        }
+
+        fetch('/favourites', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(toBeSent) //works???
+            
+        })
+        .then(()=>{
+            // console.log(JSON.stringify(this.props.data, userID, mood))
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
 
     render(){

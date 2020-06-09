@@ -35,16 +35,16 @@ class Homepage extends React.Component {
             this.setState({movieData : data.results})
         
         })
-        .then(() => {
-            fetch('/favourites', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(this.state.movieData)
-            })
-            .catch(error =>{
-                console.log(error)
-            })
-        })
+        // .then(() => {
+        //     fetch('/favourites', {
+        //         method: 'POST',
+        //         headers: {'Content-Type': 'application/json'},
+        //         body: JSON.stringify(this.state.movieData)
+        //     })
+        //     .catch(error =>{
+        //         console.log(error)
+        //     })
+        // })
         .catch(error => {
             console.log(error)
         })
