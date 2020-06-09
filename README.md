@@ -34,5 +34,10 @@ Entertain Me will allow users to be matched with entertainment to match their mo
 
 ## User Stories
 
+## For Matt
+python3
+$env:FLASK_APP="index.py"
+flask run
+
 
 
