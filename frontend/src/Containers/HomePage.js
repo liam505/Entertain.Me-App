@@ -146,7 +146,7 @@ class Homepage extends React.Component {
                         
                     </Navbar>
 
-                    <a href="https://127.0.0.1:5000/login">Login</a>
+                    <a href="http://localhost:5000/login">Login</a>
 
                    {/* <Link to="https://127.0.0.1:5000/login"><button>Google Login</button></Link> */}
                     
