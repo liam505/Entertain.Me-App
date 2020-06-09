@@ -168,8 +168,22 @@ def getUserFavouritesByMood(userID, mood):
 def postUserFavourites():
     content = request.json
     # print(json.dumps(content))
-    print(content)
-    
+    # print(content)
+
+    print(content["userID"])
+    print(content["mood"])
+    print(content["data"]["title"])
+    # print(content["data"])
+
+
+    print(content["data"]["id"])
+    response = requests.get("https://api.themoviedb.org/3/movie/" + str(content["data"]["id"]) + "?api_key=" + str(key) + "&language=en-US")
+    response = response.loads(response.content)
+    print(response)
+    print("__________________________________________________________")
+    print("runtime: " + response["runtime"])
+    print("runtime: " + response["genres"])
+    print("adult?: " + response["adult"])
     
 
     # db.session.add(favourite)

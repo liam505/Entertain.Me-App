@@ -35,16 +35,16 @@ class Homepage extends React.Component {
             this.setState({movieData : data.results})
         
         })
-        .then(() => {
-            fetch('/favourites', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(this.state.movieData)
-            })
-            .catch(error =>{
-                console.log(error)
-            })
-        })
+        // .then(() => {
+        //     fetch('/favourites', {
+        //         method: 'POST',
+        //         headers: {'Content-Type': 'application/json'},
+        //         body: JSON.stringify(this.state.movieData)
+        //     })
+        //     .catch(error =>{
+        //         console.log(error)
+        //     })
+        // })
         .catch(error => {
             console.log(error)
         })
@@ -74,9 +74,17 @@ class Homepage extends React.Component {
             }
     
             return(
-                <div className="movieContainer">
-                    {this.state.movieData.map(data => <Movie userID = {1} data = {data}/>)}
-                </div> 
+                <div>
+                    <Navbar bg="dark" variant="dark">
+                        <Navbar.Brand>
+                            Entertain.me
+                        </Navbar.Brand>
+                    </Navbar>
+                    
+                    <div className="moviesContainer">
+                        {this.state.movieData.map(data => <Movie userID = {1} data = {data}/>)}
+                    </div> 
+                </div>
             )
         }
 
