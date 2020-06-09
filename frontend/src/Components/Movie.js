@@ -38,12 +38,17 @@ class Movie extends React.Component {
         let url = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/"+ this.props.data.poster_path 
 
         return (
-            <div class="movieContainer" onClick={this.handleClickMovie}>
-                <h1>{this.props.data.title}</h1>
-                <img src = {`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${this.props.data.poster_path}`}/>
-                <Button value="Happy" onClick={this.handleClickMood}> </Button>
-                <Button variant="primary" value="Sad" onClick={this.handleClickMood}></Button>
-                <Button variant="primary" value="Bored" onClick={this.handleClickMood}></Button>
+            <div class="movieContainer">
+                <div class="movieClickableContainer" onClick={this.handleClickMovie}>
+                    <h1>{this.props.data.title}</h1>
+                    <img src = {`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${this.props.data.poster_path}`}/>
+                </div>
+                <div class="moodContainer">
+                    <Button value="Happy" onClick={this.handleClickMood}>😀</Button>
+                    <Button variant="primary" value="Sad" onClick={this.handleClickMood}>😥</Button>
+                    <Button variant="primary" value="Bored" onClick={this.handleClickMood}>🥱</Button>
+                </div>
+                
             </div>
         )
     }

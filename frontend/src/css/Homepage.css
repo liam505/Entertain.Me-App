@@ -3,3 +3,10 @@
     font-family: 'Fredoka One', cursive;
     
 }
+
+.moviesContainer{
+    display:flex;
+    flex-wrap: wrap;
+    width:100%;
+
+}

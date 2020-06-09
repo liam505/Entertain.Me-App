@@ -1,5 +1,14 @@
 .movieContainer{
+    display:flex;
     border: 3px red solid;
+    width:18%;
+    margin:1%;
+    flex-direction:column;
+}
+
+.moodContainer{
+    display:flex;
+    flex-direction:row;
 }
 
 img {
