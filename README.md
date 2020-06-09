@@ -36,3 +36,7 @@ Entertain Me will allow users to be matched with entertainment to match their mo
 
 
 
+# update requiremtns with sqlalchemy dotenv etc
+
+
+

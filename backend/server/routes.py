@@ -88,15 +88,28 @@ def callback():
     else:
         return "User email not available or not verified by Google.", 400
 
+    # user_find = Users.query.filter_by(google_id=unique_id).first()
+    # print(user_find)
+
+   
+
+
     user = Users(
         google_id=unique_id, name=users_name, email=users_email)
    
 
-    if not Users.query.get(unique_id):
+    # if not Users.query.get(unique_id):
+    if not Users.query.filter_by(google_id=unique_id).first():
         db.session.add(user)
         db.session.commit()
+       
         
-    login_user(user)
+    user_find = db.session.query(Users).filter(Users.google_id==unique_id).first()
+
+    user_logged = Users(
+         id=user_find.id, google_id=unique_id, name=users_name, email=users_email
+    )    
+    login_user(user_logged)
 
     return 'Logged in!!'
 
