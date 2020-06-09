@@ -51,7 +51,6 @@ class Movies(db.Model):
     genre = db.Column(db.String(512))
     age_rating = db.Column(db.Integer)
     running_time = db.Column(db.Integer)
-    genre = db.Column(db.String(512))
 
     def __repr__(self):
         return '<Movie %r>' % self.movie_id
