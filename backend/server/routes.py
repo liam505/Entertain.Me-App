@@ -21,7 +21,7 @@ def index():
     else:
         return '<a class="button" href="/login">Google Login</a>'
 
-@entertain.route('/login')
+@entertain.route('/login', methods=['GET'])
 def login():
    
     client_id = app.config['GOOGLE_CLIENT_ID']
@@ -102,8 +102,8 @@ def callback():
     if not Users.query.filter_by(google_id=unique_id).first():
         db.session.add(user)
         db.session.commit()
-       
-        
+
+
     user_find = db.session.query(Users).filter(Users.google_id==unique_id).first()
 
     user_logged = Users(
@@ -111,14 +111,20 @@ def callback():
     )    
     login_user(user_logged)
 
-    return 'Logged in!!'
+    return redirect("http://localhost:3000")
 
+@entertain.route("/userConfirm")
+@login_required
+def userConfirm():
+    user_id = current_user.id
+    print(user_id)
+    return 'hello'
 
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return 'hey'
+    return redirect("http://localhost:3000")
 
 
 #route for getting 1 movie using id

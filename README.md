@@ -39,6 +39,15 @@ python3
 $env:FLASK_APP="index.py"
 flask run
 
+## For Macs
+- To create venv 
+```
+python3 -m venv venv
+```
+```
+. venv/bin/activate
+```
+
 
 
 # update requiremtns with sqlalchemy dotenv etc

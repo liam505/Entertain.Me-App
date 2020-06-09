@@ -2,9 +2,10 @@ import React from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
-import Navbar from 'react-bootstrap/Navbar'
+import {Navbar, Nav} from 'react-bootstrap';
 import '../css/Homepage.css';
-import Movie from '../Components/Movie'
+import Movie from '../Components/Movie';
+import { Link, Redirect } from "react-router-dom";
 
 class Homepage extends React.Component {
     constructor(props){
@@ -65,6 +66,15 @@ class Homepage extends React.Component {
 
     }
 
+    login = (event) => {
+        // event.p
+        // console.log('LOGIN CLICKED')
+        // // return <Redirect to='/https://127.0.0.1:5000/login' />
+        // window.location.assign('/https://127.0.0.1:5000/login');
+        // console.log(window.location)
+        fetch('/login')
+    }
+
 
     render(){
 
@@ -79,7 +89,12 @@ class Homepage extends React.Component {
                         <Navbar.Brand>
                             Entertain.me
                         </Navbar.Brand>
+                        
+                        
                     </Navbar>
+                    <a href="https://127.0.0.1:5000/login">Login</a>
+
+                   {/* <Link to="https://127.0.0.1:5000/login"><button>Google Login</button></Link> */}
                     
                     <div className="moviesContainer">
                         {this.state.movieData.map(data => <Movie userID = {1} data = {data}/>)}
