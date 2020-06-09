@@ -20,6 +20,14 @@
     justify-self:center;
     border:2px black solid;
 }
-.searchBar{
+.searchBox{
+    border: black 2px solid;
     width:30%;
+}
+
+.userFavouritesContainer{
+    display:flex;
+    height:50%;
+    width:100%;
+    border: pink 3px solid;
 }

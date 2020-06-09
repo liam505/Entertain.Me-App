@@ -10,13 +10,13 @@ class Homepage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            userID:1,
             movieData:null,
             searchQuery:null,
             pageNumber:1,
             pageSection:0
         }
     }
-
 
     handleClickMovieSearch = (e) => {
 
@@ -98,6 +98,20 @@ class Homepage extends React.Component {
         this.setState({searchQuery : searchQuery})
     }
 
+    getUserFavourites = () => {
+
+        this.setState({userID : 1})
+
+        fetch(`/favourites/${this.state.userID}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+    }
+
 
     render(){
 
@@ -112,8 +126,6 @@ class Homepage extends React.Component {
                 }
             }
 
-            
-    
             return(
                 <div>
                     <Navbar bg="dark" variant="dark">
@@ -123,10 +135,10 @@ class Homepage extends React.Component {
                     </Navbar>
                 
                     <div className="searchContainer">
-                        <div className="searchBar">
+                        <div className="searchBox">
                             <Form>
                                 <Form.Group onChange={this.handleSearchChange}>
-                                    <Form.Control type="text" placeholder={"Enter a movie"} />
+                                    <Form.Control id="searchBar" type="text" placeholder={"Enter a movie"} />
                                     <Button onClick={this.handleClickMovieSearch}>🔍</Button>
                                 </Form.Group>
                             </Form>
@@ -146,7 +158,7 @@ class Homepage extends React.Component {
         // if(this.state.movieData){
         //     return response
         // }
-        
+
             return (
                 <div>
                     <Navbar bg="dark" variant="dark">
@@ -156,14 +168,24 @@ class Homepage extends React.Component {
                     </Navbar>
 
                     <div className="searchContainer">
-                        <div className="searchBar">
+                        <div className="searchBox">
                             <Form>
                                 <Form.Group onChange={this.handleSearchChange}>
-                                    <Form.Control type="text" placeholder={"Enter a movie"} />
-                                    <Button onClick={this.handleClickMovieSearch}>🔍</Button>
+                                    <Form.Control id="searchBar" type="text" placeholder={"Enter a movie"} />
+                                    <span>
+                                        <Button onClick={this.handleClickMovieSearch}>🔍</Button>
+                                    </span>
+                                    
                                 </Form.Group>
                             </Form>
                         </div>
+                    </div>
+
+                    <div className="userFavouritesContainer">
+
+                        <h1>hello world</h1>
+                        <button onClick={this.getUserFavourites}></button>
+
                     </div>
                 </div>
 

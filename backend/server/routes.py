@@ -111,7 +111,7 @@ def callback():
     )    
     login_user(user_logged)
 
-    return 'Logged in!!'
+    return ''
 
 
 @app.route("/logout")
@@ -119,6 +119,10 @@ def callback():
 def logout():
     logout_user()
     return 'hey'
+
+
+
+
 
 
 #route for getting 1 movie using id
@@ -135,17 +139,15 @@ def getMovie(movieID):
         return 'something went wrong'
 
 
-#route for getting all favourites for a specifc user by ID
+#route for getting all favourites for a specific user by ID
 @entertain.route('/favourites/<userID>')
 def getUserFavourites(userID):
     
     titles = []
     results = []
     userFavourites = db.session.query(Movies, favourite_movies).join(favourite_movies, (favourite_movies.movie_id == Movies.movie_id)).filter_by(user_id = userID).all()
-    # print(json.dumps([dict(r) for r in userFavourites]))
     for fav in userFavourites:
         results.append(fav.Movies.title)
-        # print(fav.reg_date)
     
     return json.dumps(results)
 
@@ -160,7 +162,6 @@ def getUserFavouritesByMood(userID, mood):
     for fav in userMoodFavourites:
         results.append(fav.favourite_movies.user_id)
         results.append(fav.Movies.title)
-        # print(fav.reg_date)
     
     return json.dumps(results)
 
@@ -189,7 +190,6 @@ def postUserFavourites():
     genreList = ""
 
     for genre in json_data["genres"]:
-        # genreList.append(genre["name"])
         genreList += genre["name"] + ","
 
     print(genreList)
