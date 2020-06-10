@@ -40,11 +40,16 @@ class SearchBar extends React.Component {
                 movieData : data.results,
                 pageSection : 1
             })
+            this.props.movieDataExists();
         
         })
         .catch(error => {
             console.log(error)
         })
+
+        // this.props.movieDataExists();
+        // this.props.forceRender();
+
     }
 
     handleClickNext = (e) => {
@@ -137,8 +142,6 @@ class SearchBar extends React.Component {
 
             return(
                 <div>
-                    
-                
                     <div className="searchContainer">
                         <div className="searchBox">
                             <Form>
@@ -180,12 +183,8 @@ class SearchBar extends React.Component {
                             </Form>
                         </div>
                     </div>
-                    
-                
                 </div>
-
             )
-
     }
 }
 

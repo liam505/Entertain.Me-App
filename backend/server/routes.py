@@ -229,6 +229,27 @@ def postUserFavourites():
 
     return "added"
 
+#route for deleting from favourites table
+# @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
+
+@entertain.route('/deletefavourites', methods=['POST'])
+def deleteFavourites():
+
+    content = request.json
+    print(content)
+    print(content["userID"])
+    print(content["movieID"])
+
+
+    # fav = favourite_movies.query.filter_by(user_id = content["userID"], movie_id = content["movieID"]).one()
+
+    fav = favourite_movies.query.filter_by(movie_id = 217).one()
+
+    # db.session.delete(fav)
+    # db.session.commit()
+    print(fav)
+    return "deleting user"
+
 
 # @entertain.route('/users') #broken
 # def getUsers():
@@ -268,15 +289,3 @@ def postUserFavourites():
 #     db.session.delete(user)
 #     db.session.commit()
 #     return "deleting user"
-
-
-
-#route for deleting from favourites table
-# @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
-def deleteFavourites(userID, movieID):
-    fav = favourite_movies.query.filter_by(user_id = userID, movie_id = movieID).one()
-
-    db.session.delete(fav)
-    db.session.commit()
-    print(fav)
-    return "deleting user"

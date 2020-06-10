@@ -63,17 +63,24 @@ class FavouriteMovies extends React.Component {
         if(this.state.userMovieHappy){
              return (
                  <div className="favouritesContainer">
-                    <div className="happySection">
+                    <div className="moodSection">
                         <h1>Happy</h1>
-                        {this.state.userMovieHappy.map(data => <FavouriteMovie data = {data}/>)}
+                        <div className="moodSectionMovies">
+                            {this.state.userMovieHappy.map(data => <FavouriteMovie data = {data}/>)}
+                        </div>
+                        
                     </div>
-                    <div className="sadSection">
+                    <div className="moodSection">
                         <h1>Sad</h1>
-                        {this.state.userMovieSad.map(data => <FavouriteMovie data = {data}/>)}
+                        <div className="moodSectionMovies">
+                            {this.state.userMovieSad.map(data => <FavouriteMovie data = {data}/>)}
+                        </div>
                     </div>
-                    <div className="boredSection">
+                    <div className="moodSection">
                         <h1>Bored</h1>
-                        {this.state.userMovieBored.map(data => <FavouriteMovie data = {data}/>)}
+                        <div className="moodSectionMovies">
+                            {this.state.userMovieBored.map(data => <FavouriteMovie data = {data}/>)}
+                        </div>
                     </div>   
                  </div>              
                

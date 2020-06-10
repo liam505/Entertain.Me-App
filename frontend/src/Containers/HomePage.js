@@ -14,10 +14,11 @@ class Homepage extends React.Component {
         super(props);
         this.state = {
             userID:1,
-            movieData:null,
+            movieData:false,
             searchQuery:null,
             pageNumber:1,
-            pageSection:0
+            pageSection:0,
+            force : false,
         }
     }
 
@@ -35,27 +36,52 @@ class Homepage extends React.Component {
         })
     }
 
+    forceRender = () => {
+        if(this.state.force === false){
+            this.setState({force : true})
+        }
+        else{
+            this.setState({force : false})
+        }
+    }
+
+    movieDataExists = () => {
+        this.setState({movieData : true})
+    }
+
 
 
    
     render(){
+  
+            // if(this.state.movieData){
+            //     console.log(this.state.movieData)
+            //     console.log("MOVIE DATA")
+            //     return(
+            //         <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+            //     )
+            // }
+            // else {
+            //     console.log(this.state.movieData)
+            //     console.log(" NO MOVIE DATA")
+            //     return (
+            //         <div>
+            //             <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+            //             <FavouriteMovies forceRender={this.forceRender}/>
+            //         </div>
+            //     )
+            // }
 
             return (
                 <div>
-                     
                     <SearchBar />
-
                     <FavouriteMovies />
-
-                    {/* <div className="userFavouritesContainer">
-
-                        <h1>hello world</h1>
-                        <button onClick={this.getUserFavourites}></button>
-
-                    </div> */}
                 </div>
-
+                    
             )
+
+            
+
           
         
     }
