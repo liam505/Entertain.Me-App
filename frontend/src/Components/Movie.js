@@ -23,7 +23,7 @@ class Movie extends React.Component {
 
     handleClickMood = (e) => {
         let mood = e.target.value;
-        let userID = this.props.userID;
+        let userID = this.props.userId;
 
         console.log(this.props.data)
         console.log(userID)
