@@ -58,7 +58,10 @@ class Homepage extends React.Component {
                 console.log(this.state.movieData)
                 console.log("MOVIE DATA")
                 return(
-                    <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                    <div>
+                        <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                    </div>
+                    
                 )
             }
             else {
