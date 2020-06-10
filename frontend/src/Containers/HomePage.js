@@ -13,7 +13,8 @@ class Homepage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userID:1,
+
+            userID:null,
             movieData:false,
             searchQuery:null,
             pageNumber:1,
@@ -24,9 +25,8 @@ class Homepage extends React.Component {
 
     getUserFavourites = () => {
 
-        this.setState({userID : 1})
 
-        fetch(`/favourites/${this.state.userID}`)
+        fetch(`/favourites/${this.props.userId}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -49,8 +49,6 @@ class Homepage extends React.Component {
         this.setState({movieData : true})
     }
 
-
-
    
     render(){
   
@@ -59,7 +57,7 @@ class Homepage extends React.Component {
                 console.log("MOVIE DATA")
                 return(
                     <div>
-                        <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
                     </div>
                     
                 )
@@ -69,23 +67,13 @@ class Homepage extends React.Component {
                 console.log(" NO MOVIE DATA")
                 return (
                     <div>
-                        <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
                         <FavouriteMovies forceRender={this.forceRender}/>
                     </div>
                 )
             }
 
-            // return (
-            //     <div>
-            //         <SearchBar />
-            //         <FavouriteMovies />
-            //     </div>
-                    
-            // )
-
-            
-
-          
+           
         
     }
 }
