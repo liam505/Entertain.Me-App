@@ -14,13 +14,13 @@ class FavouriteMovie extends React.Component {
 
     handleClickRemoveFavourite = () => {
         let userID = 1;
-        let movieID = this.props.data.movie_id;
+        let movieID = this.props.data.movieID;
 
         console.log(movieID)
 
         let toBeSent = {
             userID : userID,
-            movieID: 87
+            movieID: movieID
         }
         
         fetch('/deletefavourites', {
@@ -36,6 +36,9 @@ class FavouriteMovie extends React.Component {
             else {
                 this.setState({deleted : false})
             }
+        })
+        .then(() => {
+            this.props.forceRender()
         })
         .catch(error => {
             console.log(error)

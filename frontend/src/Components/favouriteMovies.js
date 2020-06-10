@@ -66,20 +66,20 @@ class FavouriteMovies extends React.Component {
                     <div className="moodSection">
                         <h1>Happy</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieHappy.map(data => <FavouriteMovie data = {data}/>)}
+                            {this.state.userMovieHappy.map(data => <FavouriteMovie forceRender = {this.props.forceRender} data = {data}/>)}
                         </div>
                         
                     </div>
                     <div className="moodSection">
                         <h1>Sad</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieSad.map(data => <FavouriteMovie data = {data}/>)}
+                            {this.state.userMovieSad.map(data => <FavouriteMovie forceRender = {this.props.forceRender} data = {data}/>)}
                         </div>
                     </div>
                     <div className="moodSection">
                         <h1>Bored</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieBored.map(data => <FavouriteMovie data = {data}/>)}
+                            {this.state.userMovieBored.map(data => <FavouriteMovie forceRender = {this.props.forceRender} data = {data}/>)}
                         </div>
                     </div>   
                  </div>              
@@ -90,7 +90,7 @@ class FavouriteMovies extends React.Component {
             return(
                 <div>
                     <h1>No favourites :(</h1>
-                    <Button onClick={this.getUserFavourites}>click for favourites</Button>
+                    <Button onClick={this.getUserFavourites}>Click for favourites</Button>
 
                 </div>
             )

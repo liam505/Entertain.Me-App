@@ -157,6 +157,7 @@ def getUserFavourites(userID):
             "genre" : fav.Movies.genre,
             "age_rating" : fav.Movies.age_rating,
             "running_time" : fav.Movies.running_time,
+            "movieID" : fav.Movies.movie_id,
             "mood" : fav.favourite_movies.mood}
         results.append(a)
     
@@ -243,10 +244,10 @@ def deleteFavourites():
 
     # fav = favourite_movies.query.filter_by(user_id = content["userID"], movie_id = content["movieID"]).one()
 
-    fav = favourite_movies.query.filter_by(movie_id = 217).one()
+    fav = favourite_movies.query.filter_by(user_id = content["userID"], movie_id = content["movieID"]).one()
 
-    # db.session.delete(fav)
-    # db.session.commit()
+    db.session.delete(fav)
+    db.session.commit()
     print(fav)
     return "deleting user"
 
