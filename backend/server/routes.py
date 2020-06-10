@@ -111,9 +111,12 @@ def callback():
 @entertain.route("/userConfirm")
 @login_required
 def userConfirm():
+
     user_id = current_user.id
-    print(user_id)
-    return 'hello'
+    json_user_id = json.dumps(user_id)
+
+    return json_user_id
+
 
 @app.route("/logout")
 @login_required
@@ -148,7 +151,14 @@ def getUserFavourites(userID):
     results = []
     userFavourites = db.session.query(Movies, favourite_movies).join(favourite_movies, (favourite_movies.movie_id == Movies.movie_id)).filter_by(user_id = userID).all()
     for fav in userFavourites:
-        results.append(fav.Movies.title)
+        a = {"title" : fav.Movies.title,
+            "description" : fav.Movies.description,
+            "image" : fav.Movies.image,
+            "genre" : fav.Movies.genre,
+            "age_rating" : fav.Movies.age_rating,
+            "running_time" : fav.Movies.running_time,
+            "mood" : fav.favourite_movies.mood}
+        results.append(a)
     
     return json.dumps(results)
 

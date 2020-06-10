@@ -20,6 +20,22 @@ class Homepage extends React.Component {
         }
     }
 
+    getUserFavourites = () => {
+
+        this.setState({userID : 1})
+
+        fetch(`/favourites/${this.state.userID}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+    }
+
+
+
    
     render(){
 
