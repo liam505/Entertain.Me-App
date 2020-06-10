@@ -1,12 +1,13 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import {Navbar, Nav} from 'react-bootstrap';
+import '../css/NavBar.css';
 
 class NavBar extends React.Component {
     render() {
         return(
             <div>
-                <Navbar bg="dark" variant="dark">
+                <Navbar className="navbar-bg" variant="dark">
                     <Navbar.Brand>
                         Entertain.me
                     </Navbar.Brand>
