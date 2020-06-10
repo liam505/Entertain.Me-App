@@ -12,6 +12,7 @@ class FavouriteMovies extends React.Component {
             userMovieHappy:null,
             userMovieSad:null,
             userMovieBored:null,
+            hasCalledAPI:false
         }
     }
 
@@ -48,7 +49,8 @@ class FavouriteMovies extends React.Component {
 
             this.setState({userMovieHappy : userMovieHappy,
                             userMovieSad : userMovieSad,
-                            userMovieBored : userMovieBored})
+                            userMovieBored : userMovieBored,
+                            hasCalledAPI : true})
         })
         .catch(error =>{
             console.log(error)
@@ -58,39 +60,43 @@ class FavouriteMovies extends React.Component {
     }
 
     render () {
-
+        console.log(this.state.userMovieHappy)
+ 
         if(this.state.userMovieHappy){
-             return (
+                console.log("rendered")
+                return (
                  <div className="favouritesContainer">
                     <div className="moodSection">
                         <h1>Happy</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieHappy.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}
+                            {this.state.userMovieHappy.length == 0 ? <h1>No Happy moods</h1> : this.state.userMovieHappy.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}
+                                
+                            
+                          
+                            
                         </div>
                         
                     </div>
                     <div className="moodSection">
                         <h1>Sad</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieSad.map(data => <FavouriteMovie userId={this.props.userId}  getUserFavourites = {this.getUserFavourites} data = {data}/>)}
+                            {this.state.userMovieSad.length == 0 ? <h1>No Sad moods</h1> : this.state.userMovieSad.map(data => <FavouriteMovie userId={this.props.userId}  getUserFavourites = {this.getUserFavourites} data = {data}/>)}
                         </div>
                     </div>
                     <div className="moodSection">
                         <h1>Bored</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieBored.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}
+                            {this.state.userMovieBored.length == 0 ? <h1>No Bored moods</h1> :this.state.userMovieBored.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}
                         </div>
                     </div>   
                  </div>              
-               
             )   
         }
         else{
+            this.getUserFavourites();
             return(
                 <div>
-                    <h1>No favourites :(</h1>
-                    <Button onClick={this.getUserFavourites}>Click for favourites</Button>
-
+                    <p>Loading...</p>
                 </div>
             )
         }

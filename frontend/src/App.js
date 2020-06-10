@@ -49,7 +49,7 @@ class App extends React.Component {
       <div className="App">
           <Router>
             <NavBar userId={this.state.userId} resetId={this.resetId}  deleteMyAccount={this.deleteMyAccount}/>
-            <HomePage  userId={this.state.userId}/>
+            <HomePage userId={this.state.userId}/>
           </Router>
       </div>
     );
