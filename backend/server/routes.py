@@ -157,6 +157,7 @@ def getUserFavourites(userID):
             "genre" : fav.Movies.genre,
             "age_rating" : fav.Movies.age_rating,
             "running_time" : fav.Movies.running_time,
+            "movieID" : fav.Movies.movie_id,
             "mood" : fav.favourite_movies.mood}
         results.append(a)
     
@@ -229,6 +230,27 @@ def postUserFavourites():
 
     return "added"
 
+#route for deleting from favourites table
+# @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
+
+@entertain.route('/deletefavourites', methods=['POST'])
+def deleteFavourites():
+
+    content = request.json
+    print(content)
+    print(content["userID"])
+    print(content["movieID"])
+
+
+    # fav = favourite_movies.query.filter_by(user_id = content["userID"], movie_id = content["movieID"]).one()
+
+    fav = favourite_movies.query.filter_by(user_id = content["userID"], movie_id = content["movieID"]).one()
+
+    db.session.delete(fav)
+    db.session.commit()
+    print(fav)
+    return "deleting user"
+
 
 @entertain.route('/users/deleteMyAccount', methods=['POST']) 
 def deleteUser():
@@ -257,7 +279,3 @@ def deleteUser():
             return 'There was an issue deleting account'
  
     
-    
-
-
-

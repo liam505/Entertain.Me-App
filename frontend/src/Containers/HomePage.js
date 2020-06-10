@@ -7,16 +7,19 @@ import '../css/Homepage.css';
 import Movie from '../Components/Movie';
 import SearchBar from '../Components/SearchBar'
 import { Link, Redirect } from "react-router-dom";
+import FavouriteMovies from '../Components/FavouriteMovies';
 
 class Homepage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+
             userID:null,
-            movieData:null,
+            movieData:false,
             searchQuery:null,
             pageNumber:1,
-            pageSection:0
+            pageSection:0,
+            force : false,
         }
     }
 
@@ -33,26 +36,44 @@ class Homepage extends React.Component {
         })
     }
 
+    forceRender = () => {
+        if(this.state.force === false){
+            this.setState({force : true})
+        }
+        else{
+            this.setState({force : false})
+        }
+    }
 
+    movieDataExists = () => {
+        this.setState({movieData : true})
+    }
 
    
     render(){
-
-            return (
-                <div>
-                     
-                    <SearchBar userId={this.props.userId} />
-
-                    <div className="userFavouritesContainer">
-
-                        <h1>hello world</h1>
-                        <button onClick={this.getUserFavourites}></button>
-
+  
+            if(this.state.movieData){
+                console.log(this.state.movieData)
+                console.log("MOVIE DATA")
+                return(
+                    <div>
+                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
                     </div>
-                </div>
+                    
+                )
+            }
+            else {
+                console.log(this.state.movieData)
+                console.log(" NO MOVIE DATA")
+                return (
+                    <div>
+                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                        <FavouriteMovies forceRender={this.forceRender}/>
+                    </div>
+                )
+            }
 
-            )
-          
+           
         
     }
 }
