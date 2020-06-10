@@ -13,7 +13,7 @@ class FavouriteMovie extends React.Component {
 
 
     handleClickRemoveFavourite = () => {
-        let userID = 1;
+        let userID = this.props.userId;
         let movieID = this.props.data.movieID;
 
         console.log(movieID)

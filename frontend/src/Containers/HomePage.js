@@ -68,7 +68,7 @@ class Homepage extends React.Component {
                 return (
                     <div>
                         <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
-                        <FavouriteMovies forceRender={this.forceRender}/>
+                        <FavouriteMovies userId={this.props.userId} forceRender={this.forceRender}/>
                     </div>
                 )
             }

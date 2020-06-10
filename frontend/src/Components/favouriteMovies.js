@@ -8,7 +8,6 @@ class FavouriteMovies extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userID : 1,
             userMovieData:null,
             userMovieHappy:null,
             userMovieSad:null,
@@ -18,9 +17,9 @@ class FavouriteMovies extends React.Component {
 
     getUserFavourites = () => {
 
-        this.setState({userID : 1})
+        // this.setState({userID : 1})
 
-        fetch(`/favourites/${this.state.userID}`)
+        fetch(`/favourites/${this.props.userId}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -66,20 +65,20 @@ class FavouriteMovies extends React.Component {
                     <div className="moodSection">
                         <h1>Happy</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieHappy.map(data => <FavouriteMovie forceRender = {this.props.forceRender} data = {data}/>)}
+                            {this.state.userMovieHappy.map(data => <FavouriteMovie userId={this.props.userId} forceRender = {this.props.forceRender} data = {data}/>)}
                         </div>
                         
                     </div>
                     <div className="moodSection">
                         <h1>Sad</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieSad.map(data => <FavouriteMovie forceRender = {this.props.forceRender} data = {data}/>)}
+                            {this.state.userMovieSad.map(data => <FavouriteMovie userId={this.props.userId} forceRender = {this.props.forceRender} data = {data}/>)}
                         </div>
                     </div>
                     <div className="moodSection">
                         <h1>Bored</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieBored.map(data => <FavouriteMovie forceRender = {this.props.forceRender} data = {data}/>)}
+                            {this.state.userMovieBored.map(data => <FavouriteMovie userId={this.props.userId} forceRender = {this.props.forceRender} data = {data}/>)}
                         </div>
                     </div>   
                  </div>              
