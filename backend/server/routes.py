@@ -230,44 +230,38 @@ def postUserFavourites():
     return "added"
 
 
-# @entertain.route('/users') #broken
-# def getUsers():
+@entertain.route('/users/deleteMyAccount', methods=['POST']) 
+def deleteUser():
+    user_id = request.json
+    print(user_id)
+
+    user_to_delete = Users.query.get_or_404(user_id)
+    favourite_movies_to_delete = favourite_movies.query.filter_by(user_id=user_id).all()
+
+    print(user_to_delete)
+    print(favourite_movies_to_delete)
+
+    if user_to_delete and favourite_movies_to_delete:
+        try:
+            for fav in favourite_movies_to_delete:
+                db.session.delete(fav)
+            db.session.delete(user_to_delete)
+            db.session.commit()
+            print('Account Deleted')
+            logout_user()
+            return redirect("http://localhost:3000")
+
+        except Exception as e:
+            print(e)
+            print('issue deleting account')
+            return 'There was an issue deleting account'
+    # try:
+    #     db.session.delete(user_to_delete)
+    # print(user_to_delete)
+    # return 'hi'
+ 
     
-#     query = db.session.query(Users).all()
-#     users = []
-
-#     if query:
-#         for u in query:
-#             users.append(u.__dict__)
-#             print(users)
-#             return users
-#     else:
-#         return 'something went wrong'
-
-
-#route for getting user by id
-# @entertain.route('/user/<userID>') # Returns a single user defined by its ID
-# def getUser(userID):
-#     user = Users.query.filter_by(user_id=userID).first()
-#     if user:
-#         return user.username
-#     else:
-#         return 'something went wrong'
-
-
-# @entertain.route('/user')
-# def addUser():
-#     user = Users(username="test username", email="google.com")
-#     db.session.add(user)
-#     db.session.commit()
-#     return "adding user"
-
-# @entertain.route('/user/<userID>', methods = ['DELETE'])
-# def deleteUser(userID):
-#     user = Users.query.filter_by(user_id=userID).first()
-#     db.session.delete(user)
-#     db.session.commit()
-#     return "deleting user"
+    
 
 
 

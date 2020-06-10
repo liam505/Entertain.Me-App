@@ -28,16 +28,29 @@ class App extends React.Component {
   }
 
   resetId = (e) => {
+
     e.preventDefault();
     this.setState({userId: null})
   }
+
+  deleteMyAccount = () =>{
+    this.setState({userId: null});
+    fetch('/users/deleteMyAccount', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(this.state.userId) //works???
+    })
+
+  }
+  
 
   render() {
     return (
       <div className="App">
           <Router>
+            <button onClick={this.deleteMyAccount} >Delete My Account</button>
             <NavBar userId={this.state.userId} resetId={this.resetId} />
-            <HomePage  />
+            <HomePage  userId={this.state.userId}/>
           </Router>
       </div>
     );

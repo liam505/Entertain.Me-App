@@ -12,7 +12,7 @@ class Homepage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userID:1,
+            userID:null,
             movieData:null,
             searchQuery:null,
             pageNumber:1,
@@ -22,9 +22,8 @@ class Homepage extends React.Component {
 
     getUserFavourites = () => {
 
-        this.setState({userID : 1})
 
-        fetch(`/favourites/${this.state.userID}`)
+        fetch(`/favourites/${this.props.userId}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -42,7 +41,7 @@ class Homepage extends React.Component {
             return (
                 <div>
                      
-                    <SearchBar />
+                    <SearchBar userId={this.props.userId} />
 
                     <div className="userFavouritesContainer">
 

@@ -22,12 +22,7 @@ class SearchBar extends React.Component {
 
         let key = "ca3b3298e0c4d85c79e20c33b747a10c"
 
-        // fetch('localhost:5000/favourites', {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify({a: 1, b: 'Textual content'})
-        // })
-
+    
         console.log("Clicked")
         console.log(this.state.searchQuery)
         let search = this.state.searchQuery
@@ -100,9 +95,7 @@ class SearchBar extends React.Component {
 
     getUserFavourites = () => {
 
-        this.setState({userID : 1})
-
-        fetch(`/favourites/${this.state.userID}`)
+        fetch(`/favourites/${this.props.userId}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -154,7 +147,7 @@ class SearchBar extends React.Component {
 
 
                     <div className="moviesContainer">
-                        {this.state.movieData.map(data => <Movie userID = {1} data = {data}/>)}
+                        {this.state.movieData.map(data => <Movie userID = {this.props.userId} data = {data}/>)}
                     </div> 
                 </div>
             )
