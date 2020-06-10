@@ -48,8 +48,7 @@ class App extends React.Component {
     return (
       <div className="App">
           <Router>
-            <button onClick={this.deleteMyAccount} >Delete My Account</button>
-            <NavBar userId={this.state.userId} resetId={this.resetId} />
+            <NavBar userId={this.state.userId} resetId={this.resetId}  deleteMyAccount={this.deleteMyAccount}/>
             <HomePage  userId={this.state.userId}/>
           </Router>
       </div>

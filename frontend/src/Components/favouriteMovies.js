@@ -65,20 +65,20 @@ class FavouriteMovies extends React.Component {
                     <div className="moodSection">
                         <h1>Happy</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieHappy.map(data => <FavouriteMovie userId={this.props.userId} forceRender = {this.props.forceRender} data = {data}/>)}
+                            {this.state.userMovieHappy.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}
                         </div>
                         
                     </div>
                     <div className="moodSection">
                         <h1>Sad</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieSad.map(data => <FavouriteMovie userId={this.props.userId} forceRender = {this.props.forceRender} data = {data}/>)}
+                            {this.state.userMovieSad.map(data => <FavouriteMovie userId={this.props.userId}  getUserFavourites = {this.getUserFavourites} data = {data}/>)}
                         </div>
                     </div>
                     <div className="moodSection">
                         <h1>Bored</h1>
                         <div className="moodSectionMovies">
-                            {this.state.userMovieBored.map(data => <FavouriteMovie userId={this.props.userId} forceRender = {this.props.forceRender} data = {data}/>)}
+                            {this.state.userMovieBored.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}
                         </div>
                     </div>   
                  </div>              

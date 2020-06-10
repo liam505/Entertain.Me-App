@@ -150,7 +150,7 @@ class SearchBar extends React.Component {
 
 
                     <div className="moviesContainer">
-                        {this.state.movieData.map(data => <Movie userID = {this.props.userId} data = {data}/>)}
+                        {this.state.movieData.map(data => <Movie userId = {this.props.userId} data = {data}/>)}
                     </div> 
                 </div>
             )

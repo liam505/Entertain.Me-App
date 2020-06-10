@@ -36,14 +36,17 @@ class Homepage extends React.Component {
         })
     }
 
-    forceRender = () => {
-        if(this.state.force === false){
-            this.setState({force : true})
-        }
-        else{
-            this.setState({force : false})
-        }
-    }
+    // forceRender = () => {
+    //     console.log("FORCING RENDER MAIN")
+    //     if(this.state.force === false){
+    //         console.log("SET TRUE")
+    //         this.setState({force : true})
+    //     }
+    //     else{
+    //         console.log("SET FALSE")
+    //         this.setState({force : false})
+    //     }
+    // }
 
     movieDataExists = () => {
         this.setState({movieData : true})
@@ -57,7 +60,7 @@ class Homepage extends React.Component {
                 console.log("MOVIE DATA")
                 return(
                     <div>
-                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                        <SearchBar userId={this.props.userId} movieDataExists={this.movieDataExists}/>
                     </div>
                     
                 )
@@ -68,7 +71,8 @@ class Homepage extends React.Component {
                 return (
                     <div>
                         <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
-                        <FavouriteMovies userId={this.props.userId} forceRender={this.forceRender}/>
+                        {this.props.userId ? <FavouriteMovies userId={this.props.userId}/> : null}
+                        
                     </div>
                 )
             }

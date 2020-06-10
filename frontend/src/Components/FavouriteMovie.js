@@ -38,7 +38,7 @@ class FavouriteMovie extends React.Component {
             }
         })
         .then(() => {
-            this.props.forceRender()
+            this.props.getUserFavourites();
         })
         .catch(error => {
             console.log(error)
