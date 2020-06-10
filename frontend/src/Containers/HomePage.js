@@ -22,7 +22,6 @@ class Homepage extends React.Component {
 
    
     render(){
-        
 
             return (
                 <div>
