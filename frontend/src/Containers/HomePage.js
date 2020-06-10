@@ -54,31 +54,31 @@ class Homepage extends React.Component {
    
     render(){
   
-            // if(this.state.movieData){
-            //     console.log(this.state.movieData)
-            //     console.log("MOVIE DATA")
-            //     return(
-            //         <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
-            //     )
-            // }
-            // else {
-            //     console.log(this.state.movieData)
-            //     console.log(" NO MOVIE DATA")
-            //     return (
-            //         <div>
-            //             <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
-            //             <FavouriteMovies forceRender={this.forceRender}/>
-            //         </div>
-            //     )
-            // }
+            if(this.state.movieData){
+                console.log(this.state.movieData)
+                console.log("MOVIE DATA")
+                return(
+                    <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                )
+            }
+            else {
+                console.log(this.state.movieData)
+                console.log(" NO MOVIE DATA")
+                return (
+                    <div>
+                        <SearchBar forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                        <FavouriteMovies forceRender={this.forceRender}/>
+                    </div>
+                )
+            }
 
-            return (
-                <div>
-                    <SearchBar />
-                    <FavouriteMovies />
-                </div>
+            // return (
+            //     <div>
+            //         <SearchBar />
+            //         <FavouriteMovies />
+            //     </div>
                     
-            )
+            // )
 
             
 
