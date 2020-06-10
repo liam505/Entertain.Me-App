@@ -255,22 +255,9 @@ def deleteUser():
             print(e)
             print('issue deleting account')
             return 'There was an issue deleting account'
-    # try:
-    #     db.session.delete(user_to_delete)
-    # print(user_to_delete)
-    # return 'hi'
  
     
     
 
 
 
-#route for deleting from favourites table
-# @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
-def deleteFavourites(userID, movieID):
-    fav = favourite_movies.query.filter_by(user_id = userID, movie_id = movieID).one()
-
-    db.session.delete(fav)
-    db.session.commit()
-    print(fav)
-    return "deleting user"
