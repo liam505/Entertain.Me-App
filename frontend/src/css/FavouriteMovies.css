@@ -1,0 +1,4 @@
+.favouritesContainer{
+    display:flex;
+    flex-direction:row;
+}

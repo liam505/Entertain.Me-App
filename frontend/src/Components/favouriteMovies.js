@@ -1,16 +1,95 @@
 import React from 'react'
+import FavouriteMovie from './FavouriteMovie'
+import '../css/FavouriteMovies.css';
+import Button from 'react-bootstrap/Button';
 
-class favouriteMovies extends React.Component {
+class FavouriteMovies extends React.Component {
 
-    render () {
-        return (
-            <h1>hello world</h1>
-        )
+    constructor(props){
+        super(props);
+        this.state = {
+            userID : 1,
+            userMovieData:null,
+            userMovieHappy:null,
+            userMovieSad:null,
+            userMovieBored:null,
+        }
     }
 
+    getUserFavourites = () => {
+
+        this.setState({userID : 1})
+
+        fetch(`/favourites/${this.state.userID}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+            this.setState({userMovieData : data})
+        })
+        .then(() => {
+            let userMovieData = this.state.userMovieData
+            let userMovieHappy = []
+            let userMovieSad = []
+            let userMovieBored = []
+
+            userMovieData.forEach(function(movie){
+                if(movie.mood === "Happy"){
+                    console.log("Happy")
+                    userMovieHappy.push(movie)
+                }
+                else if(movie.mood === "Sad"){
+                    console.log("Sad")
+                    userMovieSad.push(movie)
+                }
+                else{
+                    console.log("Bored")
+                    userMovieBored.push(movie)
+                }
+            })
+
+            this.setState({userMovieHappy : userMovieHappy,
+                            userMovieSad : userMovieSad,
+                            userMovieBored : userMovieBored})
+        })
+        .catch(error =>{
+            console.log(error)
+        })
 
 
+    }
+
+    render () {
+
+        if(this.state.userMovieHappy){
+             return (
+                 <div className="favouritesContainer">
+                    <div className="happySection">
+                        <h1>Happy</h1>
+                        {this.state.userMovieHappy.map(data => <FavouriteMovie data = {data}/>)}
+                    </div>
+                    <div className="sadSection">
+                        <h1>Sad</h1>
+                        {this.state.userMovieSad.map(data => <FavouriteMovie data = {data}/>)}
+                    </div>
+                    <div className="boredSection">
+                        <h1>Bored</h1>
+                        {this.state.userMovieBored.map(data => <FavouriteMovie data = {data}/>)}
+                    </div>   
+                 </div>              
+               
+            )   
+        }
+        else{
+            return(
+                <div>
+                    <h1>No favourites :(</h1>
+                    <Button onClick={this.getUserFavourites}>click for favourites</Button>
+
+                </div>
+            )
+        }
+    }
 
 }
 
-export default favouriteMovies;
+export default FavouriteMovies;

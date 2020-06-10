@@ -7,6 +7,7 @@ import '../css/Homepage.css';
 import Movie from '../Components/Movie';
 import SearchBar from '../Components/SearchBar'
 import { Link, Redirect } from "react-router-dom";
+import FavouriteMovies from '../Components/FavouriteMovies';
 
 class Homepage extends React.Component {
     constructor(props){
@@ -44,12 +45,14 @@ class Homepage extends React.Component {
                      
                     <SearchBar />
 
-                    <div className="userFavouritesContainer">
+                    <FavouriteMovies />
+
+                    {/* <div className="userFavouritesContainer">
 
                         <h1>hello world</h1>
                         <button onClick={this.getUserFavourites}></button>
 
-                    </div>
+                    </div> */}
                 </div>
 
             )
