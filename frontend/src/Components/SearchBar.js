@@ -181,12 +181,7 @@ class SearchBar extends React.Component {
                         </div>
                     </div>
                     
-                    <div className="userFavouritesContainer">
-
-                        <h1>hello world</h1>
-                        <button onClick={this.getUserFavourites}></button>
-
-                    </div>
+                
                 </div>
 
             )

@@ -112,7 +112,7 @@ def callback():
     login_user(user_logged)
 
     return redirect("http://localhost:3000")
-
+   
 
 @entertain.route("/userConfirm")
 @login_required
