@@ -34,7 +34,7 @@ def select_info(user_id, mood):
   movies = pd.read_sql_query("SELECT * from movies", con)
   df3 = df.join(movies.set_index('movie_id')[['description']], on='movie_id')
 #   print(df3.head(2))
-  con.close()
+  # con.close()
 
   df3['keywords'] = df3.apply(get_keywords, axis=1)
   words = df3['keywords'].tolist()
@@ -69,7 +69,7 @@ def select_info(user_id, mood):
         # Get the movie indices
         movie_indices = [i[0] for i in sim_scores]
          
-        series = (metadata['original_title'].iloc[movie_indices]).tolist() 
+        series = (metadata['id'].iloc[movie_indices]).tolist() 
         # titles = (metadata['original_title'].iloc[movie_indices]).to_frame()
         # joined_frame = series.join(titles.set_index('movie_indices')[['original_title']], on='movie_indices')
         # joined_frame  = pd.concat([series, titles], axis=1)

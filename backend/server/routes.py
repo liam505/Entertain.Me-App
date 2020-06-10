@@ -16,23 +16,23 @@ entertain = Blueprint('entertain', __name__)
 @entertain.route('/')
 def index():
     return "hello"
-    # if current_user.is_authenticated:
-    #     return '<a class="button" href="/logout">Logout</a>'
-    # else:
-    #     return '<a class="button" href="/login">Google Login</a>'
+    if current_user.is_authenticated:
+        return '<a class="button" href="/logout">Logout</a>'
+    else:
+        return '<a class="button" href="/login">Google Login</a>'
 
-@entertain.route('/reccomend')
-# @login_required
-def reccomendation():
-    # user_id = current_user.id
-    # user_id = request.get('user_id')
-    # mood = request.get('mood')
-    info = select_info(2, 'bored')
-    # print(info)
+@entertain.route('/recomend/<mood>')
+@login_required
+def reccomendation(mood):
+    user_id = current_user.id
+    info = select_info(user_id, mood)
+    ids = []
     for item in info:
         if not favourite_movies.query.filter_by(movie_id=item, user_id=1).first():
-            print(f'hi{item}')
-    return 'hi'
+             ids.append(item)
+    json_item = json.dumps(ids) 
+    return json_item
+   
 
 @entertain.route('/login', methods=['GET'])
 def login():
@@ -120,12 +120,12 @@ def callback():
     return redirect("http://localhost:3000")
    
 
-@entertain.route("/userConfirm")
+@entertain.route("/user_confirm")
 @login_required
-def user_confirm():
+def userConfirm():
     user_id = current_user.id
     json_user_id = json.dumps(user_id)
-
+    print(user_id)
     return json_user_id
 
 
@@ -134,8 +134,6 @@ def user_confirm():
 def logout():
     logout_user()
     return redirect("http://localhost:3000")
-
-
 
 
 

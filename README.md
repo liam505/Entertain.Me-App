@@ -50,7 +50,5 @@ python3 -m venv venv
 
 
 
-# update requiremtns with sqlalchemy dotenv etc
-
 
 
