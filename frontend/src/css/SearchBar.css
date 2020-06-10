@@ -1,0 +1,12 @@
+.searchContainer{
+    display:flex;
+    flex-direction:row;
+    width:50%;
+    justify-content:center;
+    justify-self:center;
+    border:2px black solid;
+}
+.searchBox{
+    border: black 2px solid;
+    width:30%;
+}

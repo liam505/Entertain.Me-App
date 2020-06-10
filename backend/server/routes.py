@@ -100,14 +100,10 @@ def callback():
     else:
         return "User email not available or not verified by Google.", 400
 
-    # user_find = Users.query.filter_by(google_id=unique_id).first()
-    # print(user_find)
-
    
 
 
-    user = Users(
-        google_id=unique_id, name=users_name, email=users_email)
+    user = Users(google_id=unique_id, name=users_name, email=users_email)
    
 
     # if not Users.query.get(unique_id):
@@ -118,13 +114,11 @@ def callback():
 
     user_find = db.session.query(Users).filter(Users.google_id==unique_id).first()
 
-    user_logged = Users(
-         id=user_find.id, google_id=unique_id, name=users_name, email=users_email
-    )    
+    user_logged = Users( id=user_find.id, google_id=unique_id, name=users_name, email=users_email)    
     login_user(user_logged)
 
     return redirect("http://localhost:3000")
-
+   
 
 @entertain.route("/userConfirm")
 @login_required

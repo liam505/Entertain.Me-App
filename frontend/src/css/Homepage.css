@@ -12,19 +12,6 @@
     border: 2px green solid;
 }
 
-.searchContainer{
-    display:flex;
-    flex-direction:row;
-    width:100%;
-    justify-content:center;
-    justify-self:center;
-    border:2px black solid;
-}
-.searchBox{
-    border: black 2px solid;
-    width:30%;
-}
-
 .userFavouritesContainer{
     display:flex;
     height:50%;
