@@ -260,6 +260,11 @@ def deleteUser():
     user_to_delete = Users.query.get_or_404(user_id)
     favourite_movies_to_delete = favourite_movies.query.filter_by(user_id=user_id).all()
 
+    if (favourite_movies_to_delete == []):
+        favourite_movies_to_delete = False
+
+    
+
     print(user_to_delete)
     print(favourite_movies_to_delete)
 
@@ -277,5 +282,20 @@ def deleteUser():
             print(e)
             print('issue deleting account')
             return 'There was an issue deleting account'
- 
+    elif (user_to_delete):
+        try:
+            db.session.delete(user_to_delete)
+            db.session.commit()
+            print('Account Deleted')
+            logout_user()
+            return redirect("http://localhost:3000")
+        except Exception as e:
+            print(e)
+            print('issue deleting account')
+            return 'There was an issue deleting account'
+    else:
+        return 'There was an issue deleting account'
+
+    
+     
     

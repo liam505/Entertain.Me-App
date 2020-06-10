@@ -13,8 +13,7 @@ class NavBar extends React.Component {
                     <Navbar.Brand>
                         Entertain.me
                     </Navbar.Brand>
-                    {this.props.userId ? this.b : this.a}
-                         
+                    {this.props.userId ? this.b : this.a}  
                 </Navbar>
             </div>
         )

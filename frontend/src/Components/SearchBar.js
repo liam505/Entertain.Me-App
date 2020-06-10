@@ -111,12 +111,13 @@ class SearchBar extends React.Component {
     }
 
     login = (event) => {
-        // event.p
-        // console.log('LOGIN CLICKED')
-        // // return <Redirect to='/https://127.0.0.1:5000/login' />
-        // window.location.assign('/https://127.0.0.1:5000/login');
-        // console.log(window.location)
         fetch('/login')
+    }
+
+    handleClickGoBack = () => {
+        console.log("go back clicked")
+        this.props.goBack();
+        this.setState({movieData:null});
     }
 
 
@@ -132,6 +133,7 @@ class SearchBar extends React.Component {
                     this.state.movieData.shift();
                 }
             }
+        }
 
             return(
                 <div>
@@ -145,40 +147,19 @@ class SearchBar extends React.Component {
                             </Form>
                         </div>
 
-                        <Button onClick={this.handleClickNext}>Next Page</Button>
+                        {this.state.movieData ? <div><Button onClick={this.handleClickGoBack}>Go back</Button><Button onClick={this.handleClickNext}>Next Page</Button> </div>: null}
+                        
                     </div>
 
-
-                    <div className="moviesContainer">
+                    {this.state.movieData ? <div className="moviesContainer">
                         {this.state.movieData.map(data => <Movie userId = {this.props.userId} data = {data}/>)}
-                    </div> 
+                    </div> : null}
+                    
                 </div>
             )
         }
-
-
-        // if(this.state.movieData){
-        //     return response
-        // }
-
-            return (
-                <div>
-                     <div className="searchContainer">
-                        <div className="searchBox">
-                            <Form>
-                                <Form.Group onChange={this.handleSearchChange}>
-                                    <Form.Control id="searchBar" type="text" placeholder={"Enter a movie"} />
-                                    <span>
-                                        <Button onClick={this.handleClickMovieSearch}>🔍</Button>
-                                    </span>
-                                    
-                                </Form.Group>
-                            </Form>
-                        </div>
-                    </div>
-                </div>
-            )
-    }
+            
+    
 }
 
 export default SearchBar;

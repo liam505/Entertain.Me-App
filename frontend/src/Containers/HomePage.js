@@ -51,6 +51,9 @@ class Homepage extends React.Component {
     movieDataExists = () => {
         this.setState({movieData : true})
     }
+    goBack = () => {
+        this.setState({movieData : false})
+    }
 
    
     render(){
@@ -60,7 +63,8 @@ class Homepage extends React.Component {
                 console.log("MOVIE DATA")
                 return(
                     <div>
-                        <SearchBar userId={this.props.userId} movieDataExists={this.movieDataExists}/>
+                        <SearchBar userId={this.props.userId} goBack={this.goBack} movieDataExists={this.movieDataExists}/>
+                        
                     </div>
                     
                 )
@@ -70,9 +74,8 @@ class Homepage extends React.Component {
                 console.log(" NO MOVIE DATA")
                 return (
                     <div>
-                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
+                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} goBack={this.goBack} movieDataExists={this.movieDataExists}/>
                         {this.props.userId ? <FavouriteMovies userId={this.props.userId}/> : null}
-                        
                     </div>
                 )
             }
