@@ -27,7 +27,8 @@ class App extends React.Component {
     })
   }
 
-  resetId = () => {
+  resetId = (e) => {
+    e.preventDefault();
     this.setState({userId: null})
   }
 
@@ -35,8 +36,8 @@ class App extends React.Component {
     return (
       <div className="App">
           <Router>
-            <NavBar userId={this.state.userId} />
-            <HomePage resetId={this.resetId} />
+            <NavBar userId={this.state.userId} resetId={this.resetId} />
+            <HomePage  />
           </Router>
       </div>
     );
