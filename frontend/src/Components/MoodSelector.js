@@ -40,7 +40,7 @@ class MoodSelector extends React.Component {
                 <h2>How Are You Feeling Today?</h2>
                 <div className="div-buttons">
                     <div classname='mood-button'>
-                    { this.props.movieHappy.length == 0 ? null : <div className="moods-b"> <button value="Happy"onClick={this.hasBeenClicked}>Couldn't Be Better</button> </div>}
+                    { this.props.movieHappy.length == 0 ? null : <div className="moods-b"> <button value="Happy" onClick={this.hasBeenClicked}>Couldn't Be Better</button> </div>}
                     </div>
                     <div classname='mood-button'>
                     { this.props.movieSad.length == 0 ? null : <div className="moods-b"> <button value="Sad" onClick={this.hasBeenClicked}>Need Cheering Up</button> </div> }

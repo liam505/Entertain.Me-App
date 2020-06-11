@@ -42,7 +42,7 @@ h1{
     flex-direction:row;
     flex-wrap:wrap;
     width:100%;
-    height:100%;
+    /* height:100%; */
     justify-content:space-around;
 }
 img{
@@ -55,10 +55,5 @@ img{
     background-color: #4C4C58;
 }
 
-}
 
-/* img{
-    height:300px;
-    width:200px;
-} */
 

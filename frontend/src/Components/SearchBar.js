@@ -19,19 +19,12 @@ class SearchBar extends React.Component {
 
     handleClickMovieSearch = (e) => {
 
-
-
         let key = "ca3b3298e0c4d85c79e20c33b747a10c"
         let searchQuery = e.target.value;
-        this.setState({ searchQuery : e.target.value});
-        this.setState({pageNumber:1});
-        
     
         console.log("Clicked")
         console.log(this.state.searchQuery)
         let search = searchQuery
-
-
 
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${search}&page=1&include_adult=false`)
         .then(response => response.json())
