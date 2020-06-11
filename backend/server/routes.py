@@ -25,10 +25,11 @@ def index():
 @login_required
 def reccomendation(mood):
     user_id = current_user.id
+    print(user_id)
     info = select_info(user_id, mood)
     ids = []
     for item in info:
-        if not favourite_movies.query.filter_by(movie_id=item, user_id=1).first():
+        if not favourite_movies.query.filter_by(movie_id=item, user_id=user_id).first():
              ids.append(item)
     json_item = json.dumps(ids) 
     return json_item

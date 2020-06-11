@@ -7,7 +7,6 @@ import '../css/Homepage.css';
 import Movie from '../Components/Movie';
 import SearchBar from '../Components/SearchBar'
 import { Link, Redirect } from "react-router-dom";
-import MoodSelector from '../Components/MoodSelector';
 import FavouriteMovies from '../Components/FavouriteMovies';
 
 
@@ -83,7 +82,12 @@ class Homepage extends React.Component {
                 return (
                     <div>
                         <SearchBar userId={this.props.userId} forceRender={this.forceRender} goBack={this.goBack} movieDataExists={this.movieDataExists}/>
-                        {this.props.userId ? <FavouriteMovies userId={this.props.userId}/> : null}
+                        {this.props.userId ? 
+                            <div>
+                                
+                                <FavouriteMovies userId={this.props.userId}/>
+                            </div>
+                            : null}
                     </div>
 
                 )

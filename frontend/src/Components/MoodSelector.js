@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import Recommendation from './Recommendation';
 import Recommendations from './Recommendations';
+import '../css/MoodSelector.css'
 
 
 class MoodSelector extends React.Component {
@@ -10,7 +10,8 @@ class MoodSelector extends React.Component {
         super(props);
         this.state = {
             feeling: null, 
-            data: null
+            data: null,
+            clicked: false
         }
 
         this.hasBeenClicked = this.hasBeenClicked.bind(this);
@@ -19,12 +20,14 @@ class MoodSelector extends React.Component {
     hasBeenClicked = (event) => {
         event.preventDefault();
         this.setState({
-            feeling : event.target.value
+            feeling : event.target.value,
+            data: null
         },() => this.getRecommendation())
     }
 
     getRecommendation = () => {
-        fetch('/recomend/happy')
+        console.log(this.state.feeling)
+        fetch(`/recomend/${this.state.feeling}`)
         .then(response => response.json())
         .then(response => this.setState( {data: response} ))
     }
@@ -33,14 +36,26 @@ class MoodSelector extends React.Component {
     render() {
         return(
         <div>
-            <h1>recommendations</h1>
-            <div>
+            <div className="recommendation-section">
                 <h2>How Are You Feeling Today?</h2>
-                <button value="sad" onClick={this.hasBeenClicked}>Need Cheering Up</button>
-                <button value="happy"onClick={this.hasBeenClicked}>Couldn't Be Better</button>
-                <button value="bored" onClick={this.hasBeenClicked}>Bored</button>
+                <div className="div-buttons">
+                    <div classname='mood-button'>
+                    { this.props.movieHappy.length == 0 ? null : <div className="moods-b"> <button value="Happy"onClick={this.hasBeenClicked}>Couldn't Be Better</button> </div>}
+                    </div>
+                    <div classname='mood-button'>
+                    { this.props.movieSad.length == 0 ? null : <div className="moods-b"> <button value="Sad" onClick={this.hasBeenClicked}>Need Cheering Up</button> </div> }
+                    </div>
+                    <div classname='mood-button'>
+                    { this.props.movieBored.length == 0 ? null : <div className="moods-b"><button value="Bored" onClick={this.hasBeenClicked}>Bored</button></div>}
+                    </div>
+                </div>
+                
+                
+                
 
-                {this.state.data ? this.state.data.map(id => <Recommendations id={id} />) : null }
+                <div className="recommended">
+                   {this.state.data ? this.state.data.map(id => <Recommendations clicked={this.state.clicked} userId={this.props.userId} id={id} />) : null }
+                </div>
             </div>
         </div>
         )
