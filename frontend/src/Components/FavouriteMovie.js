@@ -59,7 +59,7 @@ class FavouriteMovie extends React.Component {
                 
                 <img src = {url} alt={this.props.data.title}/>
                 <div className="title">{this.props.data.title}</div>
-                <Button variant="dark"onClick={this.handleClickRemoveFavourite}>Remove Favourite</Button>
+                <Button id="button" variant="dark"onClick={this.handleClickRemoveFavourite}>Remove Favourite</Button>
             </div>
             
         )
