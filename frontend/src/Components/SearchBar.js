@@ -149,9 +149,9 @@ class SearchBar extends React.Component {
                                 <Button className="results-button" onClick={this.handleClickGoBack}>
                                     Back to Favourites
                                 </Button>
-                                <button className="btn btn-outline-success" onClick={this.handleClickNext}>
+                                {/* <button className="btn btn-outline-success" onClick={this.handleClickNext}>
                                     Next Page
-                                </button> 
+                                </button>  */}
                             </div>:
                             null}
                         
