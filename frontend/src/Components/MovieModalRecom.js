@@ -70,9 +70,9 @@ class MovieModalRecom extends React.Component {
                         </div>
                         <p>{this.props.data.overview}</p>
                         <div class="moodContainer">
-                        <Button value="Happy" onClick={this.handleClickMood}>😀</Button>
-                        <Button variant="primary" value="Sad" onClick={this.handleClickMood}>😥</Button>
-                        <Button variant="primary" value="Bored" onClick={this.handleClickMood}>🥱</Button>
+                            <Button id="moodButton" variant="dark" value="Happy" onClick={this.handleClickMood}>😀</Button>
+                            <Button id="moodButton" variant="dark" value="Sad" onClick={this.handleClickMood}>😥</Button>
+                            <Button id="moodButton" variant="dark" value="Bored" onClick={this.handleClickMood}>🥱</Button>
                         </div>
 
                             
