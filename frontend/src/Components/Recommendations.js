@@ -1,15 +1,24 @@
 import React from 'react';
-import movieRec from './movieRec';
+import MovieModal from './MovieModalRecom';
+import '../css/Recommendation.css';
 
 class Recommendations extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            data: undefined
+            data: undefined,
+            movieModalShow : false
         }
     }
 
 
+
+
+    handleClickMovie = () => {
+        // Click on movie for further information Modal
+        this.setState({movieModalShow : true})
+        // alert("Hello! I am an alert box!!");
+    }
 
     componentDidMount () {
         if (this.props.id) {
@@ -28,13 +37,18 @@ class Recommendations extends React.Component {
         if(this.state.data) {
             console.log(this.state.data)
             return(
-                <div>
-               { this.state.data.map(movie => <div><h1>{movie.original_title}</h1>  <img src={"http://image.tmdb.org/t/p/w185/" + movie.poster_path} alt='poster'></img></div>) }
+                <div className="recommendation-div">
+               { this.state.data.map(movie => <div className="individual-movie"><p onClick={this.handleClickMovie}>{movie.original_title}</p>  <img src={"http://image.tmdb.org/t/p/w185/" + movie.poster_path} alt='poster'></img>      <MovieModal 
+                show={this.state.movieModalShow}
+                onHide={() => this.setState({movieModalShow : false})}
+                data = {movie}
+                userId={this.props.userId}
+                /></div>) }
                  </div> 
             )
         } 
             return(
-                <div><h1>hi</h1></div>
+                <div><p>Loading your movies...</p></div>
             )
         }
 

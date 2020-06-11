@@ -29,7 +29,7 @@ def listToString(s):
 
 def select_info(user_id, mood):
   df = pd.read_sql_query(f"SELECT * from favourite_movies WHERE user_id ={user_id}  AND mood = '{mood}'", con)
-#   print(df.head())
+  # print(df.head())
   lenght = int(len(df))
   movies = pd.read_sql_query("SELECT * from movies", con)
   df3 = df.join(movies.set_index('movie_id')[['description']], on='movie_id')

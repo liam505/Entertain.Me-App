@@ -49,17 +49,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-          <Router>
+          
            
             <NavBar userId={this.state.userId} resetId={this.resetId} />
             <HomePage userId={this.state.userId} />
-            <Switch>
-             <Route path='/mood' component={MoodSelector}/>
-             <Route path='/reccom'  component={Recommendations}/>
-             
-            </Switch>
-
-          </Router>
+           
       </div>
     );
   }

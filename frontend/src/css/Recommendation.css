@@ -1,0 +1,8 @@
+.recommendation-div {
+    margin: 5px;
+}
+
+.individual-movie p:hover {
+    color: darkblue;
+    cursor: pointer;
+}

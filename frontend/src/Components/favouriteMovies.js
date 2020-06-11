@@ -2,6 +2,7 @@ import React from 'react'
 import FavouriteMovie from './FavouriteMovie'
 import '../css/FavouriteMovies.css';
 import Button from 'react-bootstrap/Button';
+import MoodSelector from '../Components/MoodSelector';
 
 class FavouriteMovies extends React.Component {
 
@@ -65,7 +66,11 @@ class FavouriteMovies extends React.Component {
         if(this.state.userMovieHappy){
                 console.log("rendered")
                 return (
-                 <div className="favouritesContainer">
+                 <div className="mood-section">
+                    <div className="mood-selector">
+                        <MoodSelector userId={this.props.userId}movieHappy={this.state.userMovieHappy} movieBored={this.state.userMovieBored} movieSad={this.state.userMovieSad} />
+                    </div>
+                    <div className="favouritesContainer">
                     <div className="moodSection">
                         <div className="moodTitle">
                             Happy
@@ -90,7 +95,8 @@ class FavouriteMovies extends React.Component {
                         <div className="moodSectionMovies">
                             {this.state.userMovieBored.length == 0 ? <h1>No Bored moods</h1> :this.state.userMovieBored.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}
                         </div>
-                    </div>   
+                    </div>  
+                    </div> 
                  </div>              
             )   
         }

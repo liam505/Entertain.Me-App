@@ -18,6 +18,7 @@ class NavBar extends React.Component {
                 Delete My Account
             </button>
         </div>;
+
     render() {
         console.log(this.props.userId)
 
