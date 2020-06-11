@@ -168,6 +168,7 @@ def get_user_favourites(userID):
             "genre" : fav.Movies.genre,
             "age_rating" : fav.Movies.age_rating,
             "running_time" : fav.Movies.running_time,
+            "movieID" : fav.Movies.movie_id,
             "mood" : fav.favourite_movies.mood}
         results.append(a)
     
@@ -242,55 +243,79 @@ def post_user_favourites():
 
     return "added"
 
-
-# @entertain.route('/users') #broken
-# def getUsers():
-    
-#     query = db.session.query(Users).all()
-#     users = []
-
-#     if query:
-#         for u in query:
-#             users.append(u.__dict__)
-#             print(users)
-#             return users
-#     else:
-#         return 'something went wrong'
-
-
-#route for getting user by id
-# @entertain.route('/user/<userID>') # Returns a single user defined by its ID
-# def getUser(userID):
-#     user = Users.query.filter_by(user_id=userID).first()
-#     if user:
-#         return user.username
-#     else:
-#         return 'something went wrong'
-
-
-# @entertain.route('/user')
-# def addUser():
-#     user = Users(username="test username", email="google.com")
-#     db.session.add(user)
-#     db.session.commit()
-#     return "adding user"
-
-# @entertain.route('/user/<userID>', methods = ['DELETE'])
-# def deleteUser(userID):
-#     user = Users.query.filter_by(user_id=userID).first()
-#     db.session.delete(user)
-#     db.session.commit()
-#     return "deleting user"
-
-
-
 #route for deleting from favourites table
 # @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
-# @login_required
-def delete_favourites(userID, movieID):
-    fav = favourite_movies.query.filter_by(user_id = userID, movie_id = movieID).one()
+
+@entertain.route('/deletefavourites', methods=['POST'])
+def deleteFavourites():
+
+    content = request.json
+    print(content)
+    print(content["userID"])
+    print(content["movieID"])
+
+
+    # fav = favourite_movies.query.filter_by(user_id = content["userID"], movie_id = content["movieID"]).one()
+
+    fav = favourite_movies.query.filter_by(user_id = content["userID"], movie_id = content["movieID"]).one()
 
     db.session.delete(fav)
     db.session.commit()
     print(fav)
     return "deleting user"
+
+
+@entertain.route('/users/deleteMyAccount', methods=['POST']) 
+def deleteUser():
+    user_id = request.json
+    print(user_id)
+
+    user_to_delete = Users.query.get_or_404(user_id)
+    favourite_movies_to_delete = favourite_movies.query.filter_by(user_id=user_id).all()
+
+
+#route for deleting from favourites table
+# @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
+# @login_required
+# def delete_favourites(userID, movieID):
+#     fav = favourite_movies.query.filter_by(user_id = userID, movie_id = movieID).one()
+#     if (favourite_movies_to_delete == []):
+#         favourite_movies_to_delete = False
+
+
+    
+
+    print(user_to_delete)
+    print(favourite_movies_to_delete)
+
+    if user_to_delete and favourite_movies_to_delete:
+        try:
+            for fav in favourite_movies_to_delete:
+                db.session.delete(fav)
+            db.session.delete(user_to_delete)
+            db.session.commit()
+            print('Account Deleted')
+            logout_user()
+            return redirect("http://localhost:3000")
+
+        except Exception as e:
+            print(e)
+            print('issue deleting account')
+            return 'There was an issue deleting account'
+    elif (user_to_delete):
+        try:
+            db.session.delete(user_to_delete)
+            db.session.commit()
+            print('Account Deleted')
+            logout_user()
+            return redirect("http://localhost:3000")
+        except Exception as e:
+            print(e)
+            print('issue deleting account')
+            return 'There was an issue deleting account'
+    else:
+        return 'There was an issue deleting account'
+
+    
+     
+    

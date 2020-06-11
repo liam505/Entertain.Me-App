@@ -22,12 +22,7 @@ class SearchBar extends React.Component {
 
         let key = "ca3b3298e0c4d85c79e20c33b747a10c"
 
-        // fetch('localhost:5000/favourites', {
-        //     method: 'POST',
-        //     headers: {'Content-Type': 'application/json'},
-        //     body: JSON.stringify({a: 1, b: 'Textual content'})
-        // })
-
+    
         console.log("Clicked")
         console.log(this.state.searchQuery)
         let search = this.state.searchQuery
@@ -40,11 +35,16 @@ class SearchBar extends React.Component {
                 movieData : data.results,
                 pageSection : 1
             })
+            this.props.movieDataExists();
         
         })
         .catch(error => {
             console.log(error)
         })
+
+        // this.props.movieDataExists();
+        // this.props.forceRender();
+
     }
 
     handleClickNext = (e) => {
@@ -100,9 +100,7 @@ class SearchBar extends React.Component {
 
     getUserFavourites = () => {
 
-        this.setState({userID : 1})
-
-        fetch(`/favourites/${this.state.userID}`)
+        fetch(`/favourites/${this.props.userId}`)
         .then(response => response.json())
         .then(data => {
             console.log(data)
@@ -113,12 +111,13 @@ class SearchBar extends React.Component {
     }
 
     login = (event) => {
-        // event.p
-        // console.log('LOGIN CLICKED')
-        // // return <Redirect to='/https://127.0.0.1:5000/login' />
-        // window.location.assign('/https://127.0.0.1:5000/login');
-        // console.log(window.location)
         fetch('/login')
+    }
+
+    handleClickGoBack = () => {
+        console.log("go back clicked")
+        this.props.goBack();
+        this.setState({movieData:null});
     }
 
 
@@ -134,11 +133,10 @@ class SearchBar extends React.Component {
                     this.state.movieData.shift();
                 }
             }
+        }
 
             return(
                 <div>
-                    
-                
                     <div className="searchContainer">
                         <div className="searchBox">
                             <Form>
@@ -149,44 +147,19 @@ class SearchBar extends React.Component {
                             </Form>
                         </div>
 
-                        <Button onClick={this.handleClickNext}>Next Page</Button>
+                        {this.state.movieData ? <div><Button onClick={this.handleClickGoBack}>Go back</Button><Button onClick={this.handleClickNext}>Next Page</Button> </div>: null}
+                        
                     </div>
 
-
-                    <div className="moviesContainer">
-                        {this.state.movieData.map(data => <Movie userID = {1} data = {data}/>)}
-                    </div> 
+                    {this.state.movieData ? <div className="moviesContainer">
+                        {this.state.movieData.map(data => <Movie userId = {this.props.userId} data = {data}/>)}
+                    </div> : null}
+                    
                 </div>
             )
         }
-
-
-        // if(this.state.movieData){
-        //     return response
-        // }
-
-            return (
-                <div>
-                     <div className="searchContainer">
-                        <div className="searchBox">
-                            <Form>
-                                <Form.Group onChange={this.handleSearchChange}>
-                                    <Form.Control id="searchBar" type="text" placeholder={"Enter a movie"} />
-                                    <span>
-                                        <Button onClick={this.handleClickMovieSearch}>🔍</Button>
-                                    </span>
-                                    
-                                </Form.Group>
-                            </Form>
-                        </div>
-                    </div>
-                    
-                
-                </div>
-
-            )
-
-    }
+            
+    
 }
 
 export default SearchBar;

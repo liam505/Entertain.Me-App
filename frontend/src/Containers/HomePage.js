@@ -7,8 +7,9 @@ import '../css/Homepage.css';
 import Movie from '../Components/Movie';
 import SearchBar from '../Components/SearchBar'
 import { Link, Redirect } from "react-router-dom";
-import favouriteMovies from '../Components/favouriteMovies';
 import MoodSelector from '../Components/MoodSelector';
+import FavouriteMovies from '../Components/FavouriteMovies';
+
 
 class Homepage extends React.Component {
     constructor(props){
@@ -53,15 +54,25 @@ class Homepage extends React.Component {
         this.setState({movieData : true})
     }
 
+
+      
+
+    goBack = () => {
+        this.setState({movieData : false})
+    }
+
    
     render(){
-      
+  
+
             if(this.state.movieData){
                 console.log(this.state.movieData)
                 console.log("MOVIE DATA")
                 return(
                     <div>
-                        <SearchBar userId={this.props.userId} movieDataExists={this.movieDataExists}/>
+
+                        <SearchBar userId={this.props.userId} goBack={this.goBack} movieDataExists={this.movieDataExists}/>
+                        
                     </div>
                     
                 )
@@ -71,14 +82,10 @@ class Homepage extends React.Component {
                 console.log(" NO MOVIE DATA")
                 return (
                     <div>
-                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} movieDataExists={this.movieDataExists}/>
-                        {this.props.userId ?
-                            <MoodSelector />
-                        : 
-                        null}
-                        
+                        <SearchBar userId={this.props.userId} forceRender={this.forceRender} goBack={this.goBack} movieDataExists={this.movieDataExists}/>
+                        {this.props.userId ? <FavouriteMovies userId={this.props.userId}/> : null}
                     </div>
-        
+
                 )
             }
 

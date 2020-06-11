@@ -30,9 +30,21 @@ class App extends React.Component {
   }
 
   resetId = (e) => {
+
     e.preventDefault();
     this.setState({userId: null})
   }
+
+  deleteMyAccount = () =>{
+    this.setState({userId: null});
+    fetch('/users/deleteMyAccount', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(this.state.userId) //works???
+    })
+
+  }
+  
 
   render() {
     return (
@@ -46,6 +58,7 @@ class App extends React.Component {
              <Route path='/reccom'  component={Recommendations}/>
              
             </Switch>
+
           </Router>
       </div>
     );

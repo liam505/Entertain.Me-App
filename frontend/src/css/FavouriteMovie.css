@@ -1,0 +1,12 @@
+.favouriteMovieContainer{
+    display:flex;
+    flex-direction:column;
+    border:2px red solid;
+    height:auto;
+    width:49%;
+    flex-wrap:wrap;
+}
+
+img{
+    height:auto;
+}

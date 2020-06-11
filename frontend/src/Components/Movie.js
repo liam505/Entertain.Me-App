@@ -23,7 +23,7 @@ class Movie extends React.Component {
 
     handleClickMood = (e) => {
         let mood = e.target.value;
-        let userID = this.props.userID;
+        let userID = this.props.userId;
 
         console.log(this.props.data)
         console.log(userID)
@@ -66,11 +66,21 @@ class Movie extends React.Component {
                         {/* <img src="/images/noPoster.png" />  */}
                         <img src = {url}/>
                     </div>
+                    {this.props.userId ?  
                     <div class="moodContainer">
                         <Button value="Happy" onClick={this.handleClickMood}>😀</Button>
                         <Button variant="primary" value="Sad" onClick={this.handleClickMood}>😥</Button>
                         <Button variant="primary" value="Bored" onClick={this.handleClickMood}>🥱</Button>
                     </div>
+                    : null}
+
+
+
+                    {/* <div class="moodContainer">
+                        <Button value="Happy" onClick={this.handleClickMood}>😀</Button>
+                        <Button variant="primary" value="Sad" onClick={this.handleClickMood}>😥</Button>
+                        <Button variant="primary" value="Bored" onClick={this.handleClickMood}>🥱</Button>
+                    </div> */}
 
                     <MovieModal 
                 show={this.state.movieModalShow}
