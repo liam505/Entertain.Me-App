@@ -28,10 +28,10 @@ button{
 .results-btn-container{
     display: flex;
     justify-content: center;
+    padding-bottom: 3vh;
 }
 
-.results-button{
-    left: 0;
-    position: absolute;
-}
+/* .results-button{
+    
+} */
 
