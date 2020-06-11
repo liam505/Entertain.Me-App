@@ -2,7 +2,7 @@ import React from 'react'
 import FavouriteMovie from './FavouriteMovie'
 import '../css/FavouriteMovies.css';
 import Button from 'react-bootstrap/Button';
-import MoodSelector from '../Components/MoodSelector';
+import MoodSelector from './MoodSelector';
 
 class FavouriteMovies extends React.Component {
 

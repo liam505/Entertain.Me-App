@@ -37,7 +37,7 @@ class Homepage extends React.Component {
         })
     }
 
-    // forceRender = () => {
+    // forceRender = () => 
     //     console.log("FORCING RENDER MAIN")
     //     if(this.state.force === false){
     //         console.log("SET TRUE")
