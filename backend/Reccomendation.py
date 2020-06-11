@@ -7,7 +7,7 @@ from nltk.corpus import stopwords
 from server import con
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import sigmoid_kernel, linear_kernel
-
+nltk.download('stopwords')
 stop_words = stopwords.words('english')
 metadata = pd.read_csv('tmdb_5000_movies.csv')
 
