@@ -151,7 +151,7 @@ class SearchBar extends React.Component {
                             </Form>
                         </div>
 
-                        {this.state.movieData ?
+                        {this.state.movieData && this.props.userId ?
                             <div className="results-btn-container">
                                 <Button className="results-button" onClick={this.handleClickGoBack}>
                                     Back to Favourites
