@@ -1,7 +1,7 @@
 .favouritesContainer{
     display:flex;
     width:100vw;
-    background-color:whitesmoke;
+    background-color:  lavender;
     flex-direction:row;
 }
 
@@ -9,10 +9,10 @@ h1{
     width:100%;
 }
 .moodSection:nth-child(1) {
-    border-right: 2px solid black;
+    border-right: 8px solid #4C4C58;
 }
 .moodSection:nth-child(2) {
-    border-right: 2px solid black;
+    border-right: 8px solid #4C4C58;
 }
 .moodSection {
     width:33.3%;

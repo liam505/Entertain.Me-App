@@ -62,6 +62,7 @@ class FavouriteMovies extends React.Component {
 
     render () {
         console.log(this.state.userMovieHappy)
+
  
         if(this.state.userMovieHappy){
                 console.log("rendered")
@@ -73,7 +74,7 @@ class FavouriteMovies extends React.Component {
                     <div className="favouritesContainer">
                     <div className="moodSection">
                         <div className="moodTitle">
-                            Happy
+                            Happy 😀
                         </div>
                         <div className="moodSectionMovies">
                             {this.state.userMovieHappy.length == 0 ? <h1>No Happy moods</h1> : this.state.userMovieHappy.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}
@@ -82,7 +83,7 @@ class FavouriteMovies extends React.Component {
                     </div>
                     <div className="moodSection">
                         <div className="moodTitle">
-                           Sad
+                           Sad 😥
                         </div>
                         <div className="moodSectionMovies">
                             {this.state.userMovieSad.length == 0 ? <h1>No Sad moods</h1> : this.state.userMovieSad.map(data => <FavouriteMovie userId={this.props.userId}  getUserFavourites = {this.getUserFavourites} data = {data}/>)}
@@ -90,7 +91,7 @@ class FavouriteMovies extends React.Component {
                     </div>
                     <div className="moodSection">
                         <div className="moodTitle">
-                            Bored
+                            Bored 🥱
                         </div>
                         <div className="moodSectionMovies">
                             {this.state.userMovieBored.length == 0 ? <h1>No Bored moods</h1> :this.state.userMovieBored.map(data => <FavouriteMovie userId={this.props.userId} getUserFavourites = {this.getUserFavourites} data = {data}/>)}

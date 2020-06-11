@@ -11,3 +11,8 @@
     color: darkblue;
     cursor: pointer;
 }
+
+img{
+    min-width:150px;
+    height:300px;
+}

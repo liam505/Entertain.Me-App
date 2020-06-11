@@ -60,7 +60,7 @@ class MovieModalRecom extends React.Component {
                     <Modal.Body>
                         <div className="top">
                             <div className="left">
-                            <img src={"http://image.tmdb.org/t/p/w185/" + this.props.data.poster_path} alt='poster' />  
+                            <img id="image" src={"https://image.tmdb.org/t/p/w600_and_h900_bestv2/" + this.props.data.poster_path} alt='poster' />  
                             </div>
                             <div className="right">
                                 <h1>{this.props.data.original_title}</h1>
@@ -70,9 +70,9 @@ class MovieModalRecom extends React.Component {
                         </div>
                         <p>{this.props.data.overview}</p>
                         <div class="moodContainer">
-                        <Button value="Happy" onClick={this.handleClickMood}>😀</Button>
-                        <Button variant="primary" value="Sad" onClick={this.handleClickMood}>😥</Button>
-                        <Button variant="primary" value="Bored" onClick={this.handleClickMood}>🥱</Button>
+                            <Button id="moodButton" variant="dark" onClick={this.props.handleClickMood}>😀</Button>
+                            <Button id="moodButton" variant="dark" value="Sad" onClick={this.props.handleClickMood}>😥</Button>
+                            <Button id="moodButton" variant="dark" value="Bored" onClick={this.props.handleClickMood}>🥱</Button>
                         </div>
 
                             

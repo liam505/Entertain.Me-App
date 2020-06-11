@@ -8,9 +8,13 @@
     flex-wrap:wrap;
     object-fit:contain;
     /* margin-bottom: 10px; */
-
     
 }
+
+#button{
+    min-height:55px;
+}
+
 
 .title{
     font-size:1.5em;
