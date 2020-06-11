@@ -50,11 +50,16 @@ class FavouriteMovie extends React.Component {
 
         let url = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/"+ this.props.data.image
 
+        if(this.props.data.image == null){
+            url = "https://d32qys9a6wm9no.cloudfront.net/images/movies/poster/500x735.png"
+        }
+
         return (
             <div className="favouriteMovieContainer">
-                <h1>{this.props.data.title}</h1>
+                
                 <img src = {url} alt={this.props.data.title}/>
-                <Button onClick={this.handleClickRemoveFavourite}>Remove Favourite</Button>
+                <div className="title">{this.props.data.title}</div>
+                <Button variant="dark"onClick={this.handleClickRemoveFavourite}>Remove Favourite</Button>
             </div>
             
         )
