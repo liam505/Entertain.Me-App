@@ -7,7 +7,9 @@ import '../css/Homepage.css';
 import Movie from '../Components/Movie';
 import SearchBar from '../Components/SearchBar'
 import { Link, Redirect } from "react-router-dom";
+import MoodSelector from '../Components/MoodSelector';
 import FavouriteMovies from '../Components/FavouriteMovies';
+
 
 class Homepage extends React.Component {
     constructor(props){
@@ -51,6 +53,10 @@ class Homepage extends React.Component {
     movieDataExists = () => {
         this.setState({movieData : true})
     }
+
+
+      
+
     goBack = () => {
         this.setState({movieData : false})
     }
@@ -58,11 +64,13 @@ class Homepage extends React.Component {
    
     render(){
   
+
             if(this.state.movieData){
                 console.log(this.state.movieData)
                 console.log("MOVIE DATA")
                 return(
                     <div>
+
                         <SearchBar userId={this.props.userId} goBack={this.goBack} movieDataExists={this.movieDataExists}/>
                         
                     </div>
@@ -77,6 +85,7 @@ class Homepage extends React.Component {
                         <SearchBar userId={this.props.userId} forceRender={this.forceRender} goBack={this.goBack} movieDataExists={this.movieDataExists}/>
                         {this.props.userId ? <FavouriteMovies userId={this.props.userId}/> : null}
                     </div>
+
                 )
             }
 

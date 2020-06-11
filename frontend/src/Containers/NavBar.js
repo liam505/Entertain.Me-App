@@ -4,9 +4,23 @@ import {Navbar, Nav} from 'react-bootstrap';
 import '../css/NavBar.css';
 
 class NavBar extends React.Component {
-    a = <Navbar.Text><a href="http://localhost:5000/login" >Sign In or Register</a></Navbar.Text>
-    b = <div><Navbar.Text><a onClick={this.props.resetId} href="http://localhost:5000/logout">Log Out</a></Navbar.Text><Button onClick={this.props.deleteMyAccount} >Delete My Account</Button></div>;
+
+    a = <div className="navbar-btns">
+            <form action="http://localhost:5000/login">
+                <input className="btn btn-outline-success" type="submit" value="Sign In or Register" />
+            </form>
+        </div>
+    b = <div className="navbar-btns">
+            <form action="http://localhost:5000/logout">
+                <input className="btn btn-outline-danger" type="submit" value="Log Out" />
+            </form>
+            <button className="btn btn-outline-danger" onClick={this.props.deleteMyAccount}>
+                Delete My Account
+            </button>
+        </div>;
     render() {
+        console.log(this.props.userId)
+
         return(
             <div>
                 <Navbar className="navbar-bg" variant="dark">

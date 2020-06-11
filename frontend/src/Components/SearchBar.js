@@ -2,7 +2,7 @@ import React from 'react';
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
 import {Navbar, Nav} from 'react-bootstrap';
-import '../css/Homepage.css';
+import '../css/SearchBar.css';
 import Movie from '../Components/Movie';
 import { Link, Redirect } from "react-router-dom";
 
@@ -10,7 +10,6 @@ class SearchBar extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            userID:1,
             movieData:null,
             searchQuery:null,
             pageNumber:1,
@@ -140,14 +139,12 @@ class SearchBar extends React.Component {
                     <div className="searchContainer">
                         <div className="searchBox">
                             <Form>
-                                <Form.Group onChange={this.handleSearchChange}>
-                                    <Form.Control id="searchBar" type="text" placeholder={"Enter a movie"} />
-                                    <Button onClick={this.handleClickMovieSearch}>🔍</Button>
-                                </Form.Group>
+                                <input id="searchBar" onChange={this.handleSearchChange} type="text" placeholder="Search a movie"></input>
+                                <Button onClick={this.handleClickMovieSearch}>🔍</Button>
                             </Form>
                         </div>
 
-                        {this.state.movieData ? <div><Button onClick={this.handleClickGoBack}>Go back</Button><Button onClick={this.handleClickNext}>Next Page</Button> </div>: null}
+                        {this.state.movieData ? <div className="results-btn-container"><Button className="results-button" onClick={this.handleClickGoBack}>Favourites</Button><Button className="btn btn-success" onClick={this.handleClickNext}>Next Page</Button> </div>: null}
                         
                     </div>
 
