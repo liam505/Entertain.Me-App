@@ -20,11 +20,11 @@ class SearchBar extends React.Component {
     handleClickMovieSearch = (e) => {
 
         let key = "ca3b3298e0c4d85c79e20c33b747a10c"
-
+        let searchQuery = e.target.value;
     
         console.log("Clicked")
         console.log(this.state.searchQuery)
-        let search = this.state.searchQuery
+        let search = searchQuery
 
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${search}&page=1&include_adult=false`)
         .then(response => response.json())
@@ -139,12 +139,21 @@ class SearchBar extends React.Component {
                     <div className="searchContainer">
                         <div className="searchBox">
                             <Form>
-                                <input id="searchBar" onChange={this.handleSearchChange} type="text" placeholder="Search a movie"></input>
-                                <Button onClick={this.handleClickMovieSearch}>🔍</Button>
+                                <input id="searchBar" onChange={this.handleClickMovieSearch} type="text" placeholder="Search a movie"></input>
+                                {/* <Button onClick={this.handleClickMovieSearch}>🔍</Button> */}
                             </Form>
                         </div>
 
-                        {this.state.movieData ? <div className="results-btn-container"><Button className="results-button" onClick={this.handleClickGoBack}>Favourites</Button><Button className="btn btn-success" onClick={this.handleClickNext}>Next Page</Button> </div>: null}
+                        {this.state.movieData ?
+                            <div className="results-btn-container">
+                                <Button className="results-button" onClick={this.handleClickGoBack}>
+                                    Back to Favourites
+                                </Button>
+                                <button className="btn btn-outline-success" onClick={this.handleClickNext}>
+                                    Next Page
+                                </button> 
+                            </div>:
+                            null}
                         
                     </div>
 
