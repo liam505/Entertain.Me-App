@@ -61,31 +61,25 @@ class Movie extends React.Component {
         return (
           
                 <div class="movieContainer">
-                    <div class="movieClickableContainer" onClick={this.handleClickMovie}>
-                        <h2>{this.props.data.title}</h2>
-                        {/* <img src="/images/noPoster.png" />  */}
-                        <img src = {url}/>
-                    </div>
+                    <div class="movieClickableContainer">
+                        <img onClick={this.handleClickMovie} src = {url}/>
+                        <h2 onClick={this.handleClickMovie}>{this.props.data.title}</h2>
+                    
                     {this.props.userId ?  
                     <div class="moodContainer">
-                        <Button value="Happy" onClick={this.handleClickMood}>😀</Button>
-                        <Button variant="primary" value="Sad" onClick={this.handleClickMood}>😥</Button>
-                        <Button variant="primary" value="Bored" onClick={this.handleClickMood}>🥱</Button>
+                        <Button id="moodButton" variant="dark" value="Happy" onClick={this.handleClickMood}>😀</Button>
+                        <Button id="moodButton" variant="dark" value="Sad" onClick={this.handleClickMood}>😥</Button>
+                        <Button id="moodButton" variant="dark" value="Bored" onClick={this.handleClickMood}>🥱</Button>
                     </div>
                     : null}
+                    </div>
 
-
-
-                    {/* <div class="moodContainer">
-                        <Button value="Happy" onClick={this.handleClickMood}>😀</Button>
-                        <Button variant="primary" value="Sad" onClick={this.handleClickMood}>😥</Button>
-                        <Button variant="primary" value="Bored" onClick={this.handleClickMood}>🥱</Button>
-                    </div> */}
 
                     <MovieModal 
                 show={this.state.movieModalShow}
                 onHide={() => this.setState({movieModalShow : false})}
                 data = {this.props.data}
+                handleClickMood = {this.handleClickMood}
                 />
 
                 </div>

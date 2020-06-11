@@ -275,17 +275,6 @@ def deleteUser():
     favourite_movies_to_delete = favourite_movies.query.filter_by(user_id=user_id).all()
 
 
-#route for deleting from favourites table
-# @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
-# @login_required
-# def delete_favourites(userID, movieID):
-#     fav = favourite_movies.query.filter_by(user_id = userID, movie_id = movieID).one()
-#     if (favourite_movies_to_delete == []):
-#         favourite_movies_to_delete = False
-
-
-    
-
     print(user_to_delete)
     print(favourite_movies_to_delete)
 

@@ -1,12 +1,19 @@
 .favouriteMovieContainer{
     display:flex;
     flex-direction:column;
-    border:2px red solid;
+    /* border:2px red solid; */
     height:auto;
-    width:49%;
+    width:30%;
+    /* margin: 1%; */
     flex-wrap:wrap;
+    object-fit:contain;
+    /* margin-bottom: 10px; */
+
+    
 }
 
-img{
-    height:auto;
+.title{
+    font-size:1.5em;
+    background-color:lightgrey;
 }
+

@@ -30,7 +30,7 @@ class MovieModal extends React.Component {
                     <Modal.Body>
                         <div className="top">
                             <div className="left">
-                                <img src = {url}/>     
+                                <img id="image" src = {url}/>     
                             </div>
                             <div className="right">
                                 <h1>{this.props.data.title}</h1>
@@ -39,6 +39,11 @@ class MovieModal extends React.Component {
                             </div>
                         </div>
                         <p>{this.props.data.overview}</p>
+                        <div class="moodContainer">
+                            <Button id="moodButton" variant="dark" onClick={this.props.handleClickMood}>😀</Button>
+                            <Button id="moodButton" variant="dark" value="Sad" onClick={this.props.handleClickMood}>😥</Button>
+                            <Button id="moodButton" variant="dark" value="Bored" onClick={this.props.handleClickMood}>🥱</Button>
+                        </div>
 
 
                             
