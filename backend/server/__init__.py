@@ -3,7 +3,10 @@ from .extensions import db
 from flask_login import LoginManager
 from server.settings import Config
 from flask_cors import CORS
+import sqlite3
 
+
+con = sqlite3.connect("server/db.sqlite3", check_same_thread=False)
 
 login_manager = LoginManager()
 

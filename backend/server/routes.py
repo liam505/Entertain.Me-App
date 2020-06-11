@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, request, redirect, jsonify, url_for, current_app as app
 from flask_login import (LoginManager, current_user, login_required, login_user, logout_user)
 from oauthlib.oauth2 import WebApplicationClient 
+from Reccomendation import select_info
 from .extensions import db
 import requests
 import json
-
 
 
 from .models import Users, Movies, favourite_movies
@@ -15,11 +15,24 @@ entertain = Blueprint('entertain', __name__)
 
 @entertain.route('/')
 def index():
-    # return "hello"
+    return "hello"
     if current_user.is_authenticated:
         return '<a class="button" href="/logout">Logout</a>'
     else:
         return '<a class="button" href="/login">Google Login</a>'
+
+@entertain.route('/recomend/<mood>')
+@login_required
+def reccomendation(mood):
+    user_id = current_user.id
+    info = select_info(user_id, mood)
+    ids = []
+    for item in info:
+        if not favourite_movies.query.filter_by(movie_id=item, user_id=1).first():
+             ids.append(item)
+    json_item = json.dumps(ids) 
+    return json_item
+   
 
 @entertain.route('/login', methods=['GET'])
 def login():
@@ -44,9 +57,8 @@ def login():
       
     return redirect(request_uri)
 
-@app.route("/login/callback")
-def callback():
-    
+@entertain.route("/login/callback")
+def callback(): 
     client_id = app.config['GOOGLE_CLIENT_ID']
     client_secret = app.config['GOOGLE_CLIENT_SECRET']
     client = WebApplicationClient(client_id)
@@ -108,17 +120,16 @@ def callback():
     return redirect("http://localhost:3000")
    
 
-@entertain.route("/userConfirm")
+@entertain.route("/user_confirm")
 @login_required
 def userConfirm():
-
     user_id = current_user.id
     json_user_id = json.dumps(user_id)
-
+    print(user_id)
     return json_user_id
 
 
-@app.route("/logout")
+@entertain.route("/logout")
 @login_required
 def logout():
     logout_user()
@@ -127,11 +138,10 @@ def logout():
 
 
 
-
-
 #route for getting 1 movie using id
 @entertain.route('/movie/<movieID>')
-def getMovie(movieID):
+@login_required
+def get_movie(movieID):
     movie = Movies.query.filter_by(movie_id=movieID).first()
 
     print(movieID)
@@ -145,7 +155,8 @@ def getMovie(movieID):
 
 #route for getting all favourites for a specific user by ID
 @entertain.route('/favourites/<userID>')
-def getUserFavourites(userID):
+@login_required
+def get_user_favourites(userID):
     
     titles = []
     results = []
@@ -165,7 +176,8 @@ def getUserFavourites(userID):
 
 #route for getting all favourites for a specifc user in a specific mood
 @entertain.route('/myfavourites/<userID>/<mood>')
-def getUserFavouritesByMood(userID, mood):
+@login_required
+def get_user_favourites_by_mood(userID, mood):
     
     titles = []
     results = []
@@ -181,7 +193,8 @@ def getUserFavouritesByMood(userID, mood):
 
 #rout for adding a film to favourites and the general movie DBs
 @entertain.route('/favourites', methods=["POST"])
-def postUserFavourites():
+@login_required
+def post_user_favourites():
 
     content = request.json
     response = requests.get("https://api.themoviedb.org/3/movie/" + str(content["data"]["id"]) + "?api_key=" + str(key) + "&language=en-US")
@@ -260,8 +273,15 @@ def deleteUser():
     user_to_delete = Users.query.get_or_404(user_id)
     favourite_movies_to_delete = favourite_movies.query.filter_by(user_id=user_id).all()
 
-    if (favourite_movies_to_delete == []):
-        favourite_movies_to_delete = False
+
+#route for deleting from favourites table
+# @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
+# @login_required
+# def delete_favourites(userID, movieID):
+#     fav = favourite_movies.query.filter_by(user_id = userID, movie_id = movieID).one()
+#     if (favourite_movies_to_delete == []):
+#         favourite_movies_to_delete = False
+
 
     
 
