@@ -1,0 +1,43 @@
+.recommendation-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: lavender;
+    align-items: center;
+    margin: 30px;
+    padding: 20px;
+}
+
+
+.moods-b button{
+    padding: 10px;
+    border-radius: 10px;
+    margin: 15px;
+    width: 200px;
+    background-color: #F6EFE0;
+    color: #333232;
+}
+
+.div-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.moods-b button:hover{
+    background-color: black;
+    color: white;
+}
+
+.recommended {
+    display: flex;
+    overflow-x: auto;
+    flex-direction: row;
+    width: 700px;
+    min-height: 200px; 
+
+}
+
+.recommendation-div {
+    display: flex;
+    border-top: red;
+}
