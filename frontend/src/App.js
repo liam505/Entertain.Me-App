@@ -36,6 +36,7 @@ class App extends React.Component {
   }
 
   deleteMyAccount = () =>{
+    console.log('test')
     this.setState({userId: null});
     fetch('/users/deleteMyAccount', {
       method: 'POST',
@@ -51,7 +52,7 @@ class App extends React.Component {
       <div className="App">
           
            
-            <NavBar deleteMyAccount = {this.deleteMyAccount} userId={this.state.userId} resetId={this.resetId} />
+            <NavBar deleteMyAccount={this.deleteMyAccount} userId={this.state.userId} resetId={this.resetId} />
             <HomePage userId={this.state.userId} />
            
       </div>
