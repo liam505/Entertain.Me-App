@@ -51,7 +51,7 @@ class App extends React.Component {
       <div className="App">
           
            
-            <NavBar userId={this.state.userId} resetId={this.resetId} />
+            <NavBar deleteMyAccount = {this.deleteMyAccount} userId={this.state.userId} resetId={this.resetId} />
             <HomePage userId={this.state.userId} />
            
       </div>

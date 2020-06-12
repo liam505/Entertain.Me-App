@@ -24,6 +24,10 @@ class SearchBar extends React.Component {
     
         console.log("Clicked")
         console.log(this.state.searchQuery)
+
+        this.setState({pageNumber : 1,
+                      searchQuery : e.target.value})
+        
         let search = searchQuery
 
         fetch(`https://api.themoviedb.org/3/search/movie?api_key=${key}&language=en-US&query=${search}&page=1&include_adult=false`)
@@ -149,9 +153,9 @@ class SearchBar extends React.Component {
                                 <Button className="results-button" onClick={this.handleClickGoBack}>
                                     Back to Favourites
                                 </Button>
-                                {/* <button className="btn btn-outline-success" onClick={this.handleClickNext}>
+                                <button className="btn btn-outline-success" onClick={this.handleClickNext}>
                                     Next Page
-                                </button>  */}
+                                </button> 
                             </div>:
                             null}
                         
