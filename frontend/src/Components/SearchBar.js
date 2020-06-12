@@ -135,7 +135,7 @@ class SearchBar extends React.Component {
         }
 
             return(
-                <div>
+                <div data-test="searchbar_component">
                     <div className="searchContainer">
                         <div className="searchBox">
                             <Form>

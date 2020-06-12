@@ -25,10 +25,9 @@ describe('NavBar', () => {
         expect(component.length).toBe(1);
     })
     
-    it('Should render logout button div if logged in and userid exists', () => {
+    it('Should render login div if logged out and userid is null', () => {
         const wrapper = setup()
-        wrapper.setState({userId: 1})
-        const logout_div = findByTestAttr(wrapper, 'logout_div');
+        const logout_div = findByTestAttr(wrapper, 'login_div');
         expect(logout_div.length).toBe(1);
     })
 

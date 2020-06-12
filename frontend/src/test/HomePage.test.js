@@ -26,13 +26,6 @@ describe('<HomePage />', () => {
         ReactDOM.unmountComponentAtNode(div);
     });
 
-    it('renders correctly', () => {
-        const tree = renderer
-            .create(componentWithProps)
-            .toJSON();
-        expect(tree).toMatchSnapshot();
-    });
-
     it('should render a single <div /> if state movieData', () => {
         wrapper.setState({movieData: true})
         expect(wrapper.find('div').length).toEqual(1);
