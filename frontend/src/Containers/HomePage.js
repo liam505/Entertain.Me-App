@@ -83,8 +83,7 @@ class Homepage extends React.Component {
                     <div className="d-flex flex-column h-70 align-items-center justify-content-center">
                         <SearchBar userId={this.props.userId} forceRender={this.forceRender} goBack={this.goBack} movieDataExists={this.movieDataExists}/>
                         {this.props.userId ? 
-                            <div>
-                                
+                            <div test-data="component-favourites">
                                 <FavouriteMovies userId={this.props.userId}/>
                             </div>: 
                             <div className="h-100 w-100 d-flex flex-column bg-light align-items-center justify-content-between ">
