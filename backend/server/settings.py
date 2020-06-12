@@ -13,5 +13,13 @@ class Config:
         "https://accounts.google.com/.well-known/openid-configuration"
 )
 
+class TestingConfig:
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///test_db.sqlite3'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+
+
 
 
