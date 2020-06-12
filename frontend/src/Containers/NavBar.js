@@ -5,12 +5,12 @@ import '../css/NavBar.css';
 
 class NavBar extends React.Component {
 
-    a = <div className="navbar-btns">
+    a = <div className="navbar-btns" data-test="login_div">
             <form action="http://localhost:5000/login">
                 <input className="btn btn-outline-success" type="submit" value="Sign In or Register" />
             </form>
         </div>
-    b = <div className="navbar-btns">
+    b = <div className="navbar-btns" data-test="logout_div">
             <form action="http://localhost:5000/logout">
                 <input className="btn btn-outline-danger" type="submit" value="Log Out" />
             </form>
@@ -23,7 +23,7 @@ class NavBar extends React.Component {
         console.log(this.props.userId)
 
         return(
-            <div>
+            <div data-test="navbar_component">
                 <Navbar className="navbar-bg" variant="dark">
                     <Navbar.Brand>
                         Entertain.me

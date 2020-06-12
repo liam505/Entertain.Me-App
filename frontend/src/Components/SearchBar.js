@@ -139,7 +139,7 @@ class SearchBar extends React.Component {
         }
 
             return(
-                <div>
+                <div data-test="searchbar_component">
                     <div className="searchContainer">
                         <div className="searchBox">
                             <Form>
@@ -148,7 +148,7 @@ class SearchBar extends React.Component {
                             </Form>
                         </div>
 
-                        {this.state.movieData ?
+                        {this.state.movieData && this.props.userId ?
                             <div className="results-btn-container">
                                 {this.props.userId ?  
                                 <Button className="results-button" onClick={this.handleClickGoBack}>
