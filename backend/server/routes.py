@@ -15,7 +15,6 @@ entertain = Blueprint('entertain', __name__)
 
 @entertain.route('/')
 def index():
-    return "hello"
     if current_user.is_authenticated:
         return '<a class="button" href="/logout">Logout</a>'
     else:
@@ -24,15 +23,18 @@ def index():
 @entertain.route('/recomend/<mood>')
 @login_required
 def reccomendation(mood):
-    user_id = current_user.id
-    print(user_id)
-    info = select_info(user_id, mood)
-    ids = []
-    for item in info:
-        if not favourite_movies.query.filter_by(movie_id=item, user_id=user_id).first():
-             ids.append(item)
-    json_item = json.dumps(ids) 
-    return json_item
+    try:
+        user_id = current_user.id
+        info = select_info(user_id, mood)
+        ids = []
+        for item in info:
+            if not favourite_movies.query.filter_by(movie_id=item, user_id=user_id).first():
+                ids.append(item)
+        json_item = json.dumps(ids) 
+        return json_item
+
+    except:
+         return 'Sorry something went wrong, are you logged in?', 404
    
 
 @entertain.route('/login', methods=['GET'])
@@ -56,85 +58,94 @@ def login():
         scope=["openid", "email", "profile"],
     )
       
-    return redirect(request_uri)
+    return redirect(request_uri), 302
 
 @entertain.route("/login/callback")
 def callback(): 
-    client_id = app.config['GOOGLE_CLIENT_ID']
-    client_secret = app.config['GOOGLE_CLIENT_SECRET']
-    client = WebApplicationClient(client_id)
-    def get_google_provider_cfg():
-        google_url = app.config['GOOGLE_DISCOVERY_URL']
-        try:
-            return requests.get(google_url).json()
-        except:
-            return 'could not access url'
-    # Get authorization code Google sent back to you
-    code = request.args.get("code")
-    google_provider_cfg = get_google_provider_cfg()
-    token_endpoint = google_provider_cfg["token_endpoint"]
+    try:
+        client_id = app.config['GOOGLE_CLIENT_ID']
+        client_secret = app.config['GOOGLE_CLIENT_SECRET']
+        client = WebApplicationClient(client_id)
+        def get_google_provider_cfg():
+            google_url = app.config['GOOGLE_DISCOVERY_URL']
+            try:
+                return requests.get(google_url).json()
+            except:
+                return 'could not access url'
+        # Get authorization code Google sent back to you
+        code = request.args.get("code")
+        google_provider_cfg = get_google_provider_cfg()
+        token_endpoint = google_provider_cfg["token_endpoint"]
 
-    token_url, headers, body = client.prepare_token_request(
-    token_endpoint,
-    authorization_response=request.url,
-    redirect_url=request.base_url,
-    code=code
-    )
+        token_url, headers, body = client.prepare_token_request(
+        token_endpoint,
+        authorization_response=request.url,
+        redirect_url=request.base_url,
+        code=code
+        )
 
-    token_response = requests.post(
-    token_url,
-    headers=headers,
-    data=body,
-    auth=(client_id, client_secret),
-    )
+        token_response = requests.post(
+        token_url,
+        headers=headers,
+        data=body,
+        auth=(client_id, client_secret),
+        )
 
-    client.parse_request_body_response(json.dumps(token_response.json()))
-   
-    userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
-    uri, headers, body = client.add_token(userinfo_endpoint)
-    userinfo_response = requests.get(uri, headers=headers, data=body)
+        client.parse_request_body_response(json.dumps(token_response.json()))
+    
+        userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+        uri, headers, body = client.add_token(userinfo_endpoint)
+        userinfo_response = requests.get(uri, headers=headers, data=body)
 
-    if userinfo_response.json().get("email_verified"):
-        unique_id = userinfo_response.json()["sub"]
-        users_email = userinfo_response.json()["email"]
-        users_name = userinfo_response.json()["given_name"]
-    else:
-        return "User email not available or not verified by Google.", 400
+        if userinfo_response.json().get("email_verified"):
+            unique_id = userinfo_response.json()["sub"]
+            users_email = userinfo_response.json()["email"]
+            users_name = userinfo_response.json()["given_name"]
+        else:
+            
+            return "User email not available or not verified by Google.", 400
 
-   
-
-
-    user = Users(google_id=unique_id, name=users_name, email=users_email)
-   
-
-    # if not Users.query.get(unique_id):
-    if not Users.query.filter_by(google_id=unique_id).first():
-        db.session.add(user)
-        db.session.commit()
+    
 
 
-    user_find = db.session.query(Users).filter(Users.google_id==unique_id).first()
+        user = Users(google_id=unique_id, name=users_name, email=users_email)
+    
 
-    user_logged = Users( id=user_find.id, google_id=unique_id, name=users_name, email=users_email)    
-    login_user(user_logged)
+        # if not Users.query.get(unique_id):
+        if not Users.query.filter_by(google_id=unique_id).first():
+            db.session.add(user)
+            db.session.commit()
 
-    return redirect("http://localhost:3000")
+
+        user_find = db.session.query(Users).filter(Users.google_id==unique_id).first()
+
+        user_logged = Users( id=user_find.id, google_id=unique_id, name=users_name, email=users_email)    
+        login_user(user_logged)
+
+        return redirect("http://localhost:3000")
+    except:
+        return 'You need to log in', 403
    
 
 @entertain.route("/user_confirm")
 @login_required
-def userConfirm():
-    user_id = current_user.id
-    json_user_id = json.dumps(user_id)
-    print(user_id)
-    return json_user_id
+def user_confirm():
+    try:
+        user_id = current_user.id
+        json_user_id = json.dumps(user_id)
+        return json_user_id
+    except: 
+        return 'Need to be logged in to confirm user', 404
 
 
 @entertain.route("/logout")
 @login_required
 def logout():
-    logout_user()
-    return redirect("http://localhost:3000")
+    try:
+        logout_user()
+        return redirect("http://localhost:3000"), 302
+    except:
+        return redirect(url_for('index')), 302
 
 
 
@@ -144,9 +155,6 @@ def logout():
 @login_required
 def get_movie(movieID):
     movie = Movies.query.filter_by(movie_id=movieID).first()
-
-    print(movieID)
-    print(movie.title)
 
     if movie:
         return movie.title
@@ -248,7 +256,7 @@ def post_user_favourites():
 # @entertain.route('/favourites/<userID>/<movieID>') #methods = ['DELETE'] )   - uncomment to make work
 
 @entertain.route('/deletefavourites', methods=['POST'])
-def deleteFavourites():
+def delete_favourites():
 
     content = request.json
     print(content)
@@ -267,7 +275,7 @@ def deleteFavourites():
 
 
 @entertain.route('/users/deleteMyAccount', methods=['POST']) 
-def deleteUser():
+def delete_user():
     user_id = request.json
     print(user_id)
 
@@ -286,7 +294,7 @@ def deleteUser():
             db.session.commit()
             print('Account Deleted')
             logout_user()
-            return redirect("http://localhost:3000")
+            return redirect("http://localhost:3000"), 302
 
         except Exception as e:
             print(e)
@@ -296,12 +304,9 @@ def deleteUser():
         try:
             db.session.delete(user_to_delete)
             db.session.commit()
-            print('Account Deleted')
             logout_user()
-            return redirect("http://localhost:3000")
+            return redirect("http://localhost:3000"), 302
         except Exception as e:
-            print(e)
-            print('issue deleting account')
             return 'There was an issue deleting account'
     else:
         return 'There was an issue deleting account'
