@@ -14,7 +14,8 @@
     flex-direction:column;
 }
 
-img{
+#image{
+    min-width:200px;
     width:200px;
     height:300px;
 }

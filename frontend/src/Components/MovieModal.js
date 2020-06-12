@@ -39,11 +39,13 @@ class MovieModal extends React.Component {
                             </div>
                         </div>
                         <p>{this.props.data.overview}</p>
+                        {this.props.userId ?
                         <div class="moodContainer">
                             <Button id="moodButton" variant="dark" onClick={this.props.handleClickMood}>😀</Button>
                             <Button id="moodButton" variant="dark" value="Sad" onClick={this.props.handleClickMood}>😥</Button>
                             <Button id="moodButton" variant="dark" value="Bored" onClick={this.props.handleClickMood}>🥱</Button>
                         </div>
+                        : null}
 
 
                             
