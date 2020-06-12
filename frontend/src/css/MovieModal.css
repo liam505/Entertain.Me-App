@@ -1,0 +1,21 @@
+.top{
+    display:flex;
+    flex-direction:row;
+}
+
+.left{
+    display:flex;
+    width:50%;
+    margin-right:5px;
+}
+
+.right{
+    display:flex;
+    flex-direction:column;
+}
+
+#image{
+    min-width:200px;
+    width:200px;
+    height:300px;
+}

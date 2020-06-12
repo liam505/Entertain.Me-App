@@ -1,0 +1,18 @@
+.recommendation-div {
+    margin: 5px;
+}
+
+.recommendation-div img {
+    width: 200px;
+    height: auto;
+}
+
+.individual-movie p:hover {
+    color: darkblue;
+    cursor: pointer;
+}
+
+img{
+    min-width:150px;
+    height:300px;
+}

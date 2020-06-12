@@ -3,3 +3,19 @@
     font-family: 'Fredoka One', cursive;
     
 }
+
+.moviesContainer{
+    display:flex;
+    flex-wrap: wrap;
+    width:100%;
+    height:60%;
+    /* border: 2px green solid; */
+    background-color:whitesmoke;
+}
+
+.userFavouritesContainer{
+    display:flex;
+    height:50%;
+    width:100%;
+    border: pink 3px solid;
+}
