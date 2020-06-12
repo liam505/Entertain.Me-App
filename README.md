@@ -1,7 +1,7 @@
 # Entertain.Me
 
 ## About 
-Entertain Me allows users to be matched with entertainment that suits their mood. When they sign up they will give us some details on what type of media they search for when they are in a certain headspace. For example if they are in need of uplifting, what are the top 5 type of films they will turn to? From then on they will be able to input their ‘mood’ and we will return to them recommendations suited to that mood. Our users are be able to store favourites to refer back to in the future, which they can then view
+Entertain Me allows users to be matched with entertainment that suits their mood. When they sign up they will give us some details on what type of media they search for when they are in a certain headspace. For example if they are in need of uplifting, what are the top 5 type of films they will turn to? From then on they will be able to input their ‘mood’ and we will return to them recommendations suited to that mood. Users are be able to store favourites to refer back to in the future.
 
 ---
 
@@ -50,29 +50,27 @@ npm start
 ----
 ## Technologies
 ### Frontend:
-HTML
-CSS
-JavaScript
-React
-Bootstrap
+- HTML
+- CSS
+- JavaScript
+- React
+- Bootstrap
 
 #### Backend:
-Python
-Flask
-SQLite
-SQLAlchemy
-Numpy & Pandas
-NLTK
-Oauth
+- Python
+- Flask
+- SQLite
+- SQLAlchemy
+- Numpy & Pandas
+- NLTK
+- Oauth
 
 ### Testing:
-Frontend - Jest & Enzyme
-Backend - Pytest
+- Frontend - Jest & Enzyme
+- Backend - Pytest
 
 
-
-
-
+---
 
 
 ## User Stories
