@@ -29,7 +29,7 @@ class FavouriteMovie extends React.Component {
             body: JSON.stringify(toBeSent)
         })
         .then(()=>{
-            alert("fav deleted");
+            alert("Your favourited has been successfully deleted");
             if(this.state.deleted === false){
                 this.setState({deleted : true})
             }

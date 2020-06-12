@@ -150,9 +150,11 @@ class SearchBar extends React.Component {
 
                         {this.state.movieData ?
                             <div className="results-btn-container">
+                                {this.props.userId ?  
                                 <Button className="results-button" onClick={this.handleClickGoBack}>
                                     Back to Favourites
                                 </Button>
+                                : null}
                                 <button className="btn btn-outline-success" onClick={this.handleClickNext}>
                                     Next Page
                                 </button> 
