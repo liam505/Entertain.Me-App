@@ -80,6 +80,7 @@ class Movie extends React.Component {
                 onHide={() => this.setState({movieModalShow : false})}
                 data = {this.props.data}
                 handleClickMood = {this.handleClickMood}
+                userId = {this.props.userId}
                 />
 
                 </div>
